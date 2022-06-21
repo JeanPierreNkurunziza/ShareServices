@@ -171,7 +171,7 @@ AddCompetenceDetails(){
     CompetenceId: this.FormMemberCompetence.value['CompetenceId'],
     jour: this.FormMemberCompetence.value['jour'],
     heureDebut: this.FormMemberCompetence.value['heureDebut'],
-    heureFin: this.FormMemberCompetence.value['heureFin '],
+    heureFin: this.FormMemberCompetence.value['heureFin'],
     niveauCompetence: this.FormMemberCompetence.value['niveauCompetence'],
   
    }
@@ -181,6 +181,7 @@ AddCompetenceDetails(){
       console.log(data);
       if(this.isSuccessful = true){
         //this.ngZone.run(() => this.router.navigateByUrl('/members'))
+        //console.log(data)
         this.reloadCurrentRoute()
       }
       this.formFailed = false;

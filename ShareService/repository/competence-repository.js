@@ -8,7 +8,7 @@ exports.getAll =()=>{
     return db.Competence.findAll({ 
       include: {
         model: db.MemberCompetence,
-        include: { model : db.Member, attributes:['name']}
+        include: { model : db.Member, attributes:['name','image']}
       }      
         })         
 }

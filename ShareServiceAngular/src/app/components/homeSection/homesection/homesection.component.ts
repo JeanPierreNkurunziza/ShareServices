@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Competence } from 'src/app/models/competence.model';
 import { CompetenceService } from 'src/app/_services/competence.service';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-homesection',
@@ -11,8 +11,8 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbCarouselConfig]
 })
 export class HomesectionComponent implements OnInit {
-
-
+  isBleu:boolean=false;
+  closeModal:any;
   p: number = 1;
   total: number = 0;
   competences?: any;
@@ -24,7 +24,7 @@ export class HomesectionComponent implements OnInit {
   nombreMember=0;
   constructor(private competenceservice : CompetenceService,
     private router: Router,
-    private ngZone: NgZone,config: NgbCarouselConfig) { 
+    private ngZone: NgZone,config: NgbCarouselConfig, private modalService: NgbModal) { 
     config.interval = 3000;
     config.keyboard = true;
     config.pauseOnHover = true;
@@ -33,42 +33,31 @@ export class HomesectionComponent implements OnInit {
   ngOnInit(): void {
 
     this.retrieveCompetences();
-    //this.countNumberMember();
-   // this.getNumberMember(1)
+    setInterval(()=>{
+      this.isBleu=!this.isBleu;
+    }, 1000);
   }
   pageChangeEvent(event: number){
     this.p = event;
     this.retrieveCompetences();
    }
-  //  getNumberMember(id:number){
-  //   for(let i of this.list){
-  //     if(i.id==id){
-  //       if(i.MemberCompetences){
-  //         for(let k of i.MemberCompetences){
-  //           if(k.Member){                 
-  //             this.nombreMember+=this.nombreMember
-  //           }      
-  //         }
-  //       }
-             
-  //     }     
-  //   } 
-  // }
-  // calcul():void
-  // {
-  //   this.list.forEach(element => {
-  //     element.MemberCompetences?.forEach(item=>{
-  //       // item.MemberId;
-  //       if(item.MemberId){
-  //         this.nombreMember++;
-  //       }
-      
-  //     })
-  //     // this.totalPrice+=(element.qty*element.product.price);
-  //   });
-  //   console.log(this.nombreMember)
-  // }
-   
+   triggerModal(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+      this.closeModal = `Closed with: ${res}`;
+    }, (res) => {
+      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
   retrieveCompetences(): void {
     this.competenceservice.getAllCompetences(this.p).subscribe
     ({ next :

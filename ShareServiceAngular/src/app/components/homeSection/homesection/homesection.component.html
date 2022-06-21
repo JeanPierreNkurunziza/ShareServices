@@ -13,9 +13,50 @@
             <div class="carousel-caption">
               <h3>{{ image.competence }}</h3>
               <p> {{nombreMember}}</p>
+              
+
             </div>
           </ng-template>
-        </ngb-carousel>        
+        </ngb-carousel>  
+        <button class="btn btn-danger" (click)="triggerModal(modalData)">Open Modal</button>  
+        <ng-template #modalData let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Les details d'un Service</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body">
+              
+               <div class="card-text" style=" text-align: center;"> <label><strong>Title:</strong></label>  {{ currentCompetence.competence }} </div>
+              <div style=" text-align: center;"> <label><strong>Service Providers</strong></label> </div>
+               <ngb-carousel >
+                <ng-template ngbSlide *ngFor="let item of currentCompetence.MemberCompetences" >
+                  <div *ngIf="item.Member">
+                  <div class="wrapper">
+                    <img [src]="item.Member.image | image"  height="400px" width="450px"
+                    style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
+                  </div>
+                  <div class="carousel-caption">
+                    <h3><strong>{{ item.Member.name }}</strong></h3>
+                    <ul  [ngClass]="{'myg-white': isBleu, 'myg-black':!isBleu}">                             
+                      <li> <strong> Disponible:  {{ item.jour }} </strong> </li> 
+                      <li><strong>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h</strong> </li>
+                      <li><strong>Qualification:  {{ item.niveauCompetence }} </strong> </li>                                       
+                   </ul>
+                    
+      
+                  </div>
+                  </div>
+                </ng-template>
+              </ngb-carousel>  
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+          </div>
+        </ng-template>    
     </div>
 </div>
 <div class="col-md-2"></div>

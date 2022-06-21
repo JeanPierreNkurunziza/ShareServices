@@ -106,30 +106,30 @@
                                         </select>
                                         
                                         <div>
-                                            <label for="name"  style="color:blue ;">Jour Disponible</label> <br/>
+                                            <label for="jour"  style="color:blue ;">Jour Disponible</label> <br/>
                                             <input type="text" formControlName="jour" />
-                                            <span *ngIf="FormMemberCompetence.controls['jour'].invalid && !FormMember.controls['jour'].errors" style="color : red">
+                                            <span *ngIf="FormMemberCompetence.controls['jour'].invalid && !FormMemberCompetence.controls['jour'].errors" style="color : red">
                                                 Jour is required
                                             </span>
                                         </div>
                                         <div>
-                                          <label for="name"  style="color:blue ;">Heure Debut</label> <br/>
+                                          <label for="heureDebut"  style="color:blue ;">Heure Debut</label> <br/>
                                           <input type="text" formControlName="heureDebut" />
-                                          <span *ngIf="FormMemberCompetence.controls['heureDebut'].invalid && !FormMember.controls['heureDebut'].errors" style="color : red">
+                                          <span *ngIf="FormMemberCompetence.controls['heureDebut'].invalid && !FormMemberCompetence.controls['heureDebut'].errors" style="color : red">
                                               Heure Debut is required
                                           </span>
                                         </div>
                                         <div>
-                                          <label for="name"  style="color:blue ;">Heure Fin</label> <br/>
+                                          <label for="heureFin"  style="color:blue ;">Heure Fin</label> <br/>
                                           <input type="text" formControlName="heureFin" />
-                                          <span *ngIf="FormMemberCompetence.controls['heureFin'].invalid && !FormMember.controls['heureFin'].errors" style="color : red">
+                                          <span *ngIf="FormMemberCompetence.controls['heureFin'].invalid && !FormMemberCompetence.controls['heureFin'].errors" style="color : red">
                                               Heure Fin is required
                                           </span>
                                         </div>
                                         <div>
-                                          <label for="name"  style="color:blue ;">Niveau </label> <br/>
+                                          <label for="niveauCompetence"  style="color:blue ;">Niveau </label> <br/>
                                           <input type="text" formControlName="niveauCompetence"/>
-                                          <span *ngIf="FormMemberCompetence.controls['niveauCompetence'].invalid && !FormMember.controls['niveauCompetence'].errors" style="color : red">
+                                          <span *ngIf="FormMemberCompetence.controls['niveauCompetence'].invalid && !FormMemberCompetence.controls['niveauCompetence'].errors" style="color : red">
                                               Niveau competence is required
                                           </span>
                                         </div>
@@ -137,7 +137,7 @@
                                             competence is required
                                         </span> -->
                                         <!-- <div> <a class="badge badge-warning" (click)="AddCompetence()"> Valider </a> </div> -->
-                                        <button class="btn btn-primary btn-lg" type="submit" [disabled]="FormMember.invalid">Valider</button>
+                                        <button class="btn btn-primary btn-lg" type="submit" [disabled]="FormMemberCompetence.invalid">Valider</button>
                                       </form>
                                       <!-- *********************************************** -->
                                       </div>
