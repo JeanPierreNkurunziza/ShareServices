@@ -1,0 +1,150 @@
+<div class="list row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by member" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchService()" > Search </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+      
+      <h4>Service List</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let service of services | paginate: { itemsPerPage:10, currentPage: p, totalItems: total } ; let i = index; 
+         " [class.active]="i == currentIndex"
+          (click)="setActiveService(service, i)" > {{ service.service }} </li>
+      </ul>
+      <div>         
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
+      </div> 
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeService(currentIndex)"> Remove </button>
+      <Button class="m-3 btn btn-sm btn-primary"> <a style="color:azure" routerLink="/AddService"> Create </a> </Button>    
+                                
+    </div>
+    <div class="col-md-8">
+      <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-8">
+              <div class="card rounded-3">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                  class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                  alt="Sample photo">
+                <div class="card-body p-4 p-md-5" style="background-color: #8fc4b7">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2" >Service Details</h3> 
+                      <div *ngIf="currentService.id">
+                        <div class="card mb-3" style="max-width: 540px;">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                            
+                              <div class="card-img" >
+                                <img [src]="currentService.image | image" height="200px" width="150px"> </div>  
+                            </div>
+                            <div class="col-md-8" >
+                              <div class="card-body">
+                                <div class="card-text"> <label><strong>Service:</strong></label>  {{ currentService.service }} </div>
+                                <ul>                             
+                                    <li>Description:  {{ currentService.description }}  </li> 
+                                                                                                                                                 
+                                 </ul>
+                              
+                                <div *ngIf="currentService.User">
+                                <label><strong>Client :</strong> </label>
+                                    <ul>                             
+                                        <li>Demandeur:  {{ currentService.User.username }}  </li> 
+                                        <li>Email:  {{ currentService.User.email }} </li>
+                                        <li>image:  {{ currentService.User.image }}  </li>                                       
+                                     </ul>
+                                   
+                                </div>
+                                <label><strong>Service Provider :</strong>
+                                  <div> <a class="badge badge-warning" (click)="toggleShow()"> Add Provider </a> </div>
+                                  <div class="form-group" *ngIf="isShown"  id="myDivCompetence">
+                                    <!-- *********************************************** -->
+                                    <form [formGroup]="FormService" (ngSubmit)=" AddMember() ">
+                                    <label for="Members" style="color:blue" >Add Member</label>
+                                    <select multiple formControlName="Members" class="form-control" >
+                                        <!-- <option disabled>Select Member</option> -->
+                                        <option>Choose Member</option>
+                                        <option *ngFor="let member of members" [ngValue]="member.name" >{{member.name}}</option>
+                                    </select>
+                                    
+                                    <button class="btn btn-primary btn-sm" type="submit" [disabled]="FormService.invalid">Valider</button>
+                                  </form>
+                                  <!-- *********************************************** -->
+                                  </div>
+                                
+                                </label>
+                                <div *ngFor="let serviceProvider of currentService.ServiceDemandes; let i = index ">
+            
+                                    <div *ngIf="serviceProvider.id">
+                                      <p> <label><strong>Service Provider:</strong></label> {{serviceProvider.Member?.name}} - (code) : <strong>{{serviceProvider.Member?.id}}</strong> </p>
+                                   
+                                      <div> <a class="badge badge-warning" (click)="toggleShowDetails()" > Propose Date </a> </div>
+                                      <!-- ************* pour ajouter les details competence******************* -->
+                                       <div class="form-group" *ngIf="isShownDetails" > 
+                                      
+                                        <!-- *********************************************** -->
+                                        <form [formGroup]="FormServiceDemande" (ngSubmit)="AddServiceDetails()">
+                                         <div>
+                                                <label for="name"  style="color:blue ;">CodeService</label> <br/>
+                                                <input type="text" formControlName="id" ngModel="{{serviceProvider.id}}" style="width:50px ;" />
+                                        </div>
+                                        <!-- <label for="MemberId" style="color:blue" >Propose Date</label> -->
+                                        <!-- <select formControlName="MemberId" class="form-control" style="width:150px ; float: left;">
+                                            <option disabled>Select Member</option>
+                                            <option>Choose Member</option>
+                                            <option *ngFor="let memberSelected of members" [ngValue]="memberSelected.id" >{{memberSelected.name}}</option>
+                                        </select> -->
+                                        <div>
+                                             <label for="name"  style="color:blue ;">CodeMember</label> <br/>
+                                             <input type="text" formControlName="MemberId" ngModel="{{serviceProvider.Member?.id}}" style="width:50px ;" />
+                                        </div>
+                                        
+                                        <div >
+                                             <label for="name"  style="color:blue ;">Choose Date service</label> <br/> 
+                                            <input type="datetime-local" formControlName="jourHeurePropose" style="float:left ; margin-right: 3%;" />
+                                            <span *ngIf="FormServiceDemande.controls['jourHeurePropose'].invalid && !FormServiceDemande.controls['jourHeurePropose'].errors" style="color : red">
+                                                Date Time is required
+                                            </span>
+                                        </div>
+                                        
+                                        <button  class="btn btn-primary btn-sm" type="submit" [disabled]="FormServiceDemande.invalid">Valider</button>
+                                      </form>
+                                      <!-- *********************************************** -->
+                                      </div>
+
+                                      <!-- ****************** end of the details forms ********************************* -->
+                                    </div>  
+                                                                
+                                    <ul> 
+                                      <li> Code service: <strong> {{serviceProvider.id}}</strong> </li>                            
+                                      <li>Date Time Proposed:  {{ serviceProvider.jourHeurePropose }}  </li> 
+                                      <li>Creation date:  {{ serviceProvider.createdAt }} </li>
+                                                                           
+                                   </ul>
+                                    
+                                    <!-- une autre façon de recuperer une si c'est un objet 
+                                      dans une liste on ajoute le ? comme declarer dans le modèle <p>{{ item.Member?.name}}</p> -->
+                                </div>
+                                   <div> <a class="badge badge-warning" routerLink="/services/{{ currentService.id }}"> Edit </a> </div>    
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+      <div *ngIf="!currentService"> <br /> <p>Please click on Service...</p> </div>
+    </div>
+    
+  </div>
+
+

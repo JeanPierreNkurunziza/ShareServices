@@ -1,0 +1,83 @@
+<body class="container">
+<section class="vh-100 gradient-custom " style="background-color: #8fc4b7">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">User Edit Form</h3>
+<div>
+    <div *ngIf="currentUser.id" class="edit-form">
+
+      <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && updateUser()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <i class="nav-icons fa fa-user" style="color:blue ;"></i>
+          <label for="name" class="m-3" style="color:blue ;" >Name</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="currentUser.username" name="name"/>
+        </div>
+        <div class="form-group" style="color:blue ;">
+          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" [(ngModel)]="currentUser.email" name="email"/>
+        </div>
+          <!-- <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="currentUser.password" name="password"/>
+          </div> -->
+          <div class="form-group">
+            <i class="fas fa-lock fa-lg me-3 fa-fw" style="color:blue ;"></i>
+            <label for="password" style="color:blue">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="currentUser.password"
+              required minlength="8" #password="ngModel"/>
+            <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+              <div *ngIf="password.errors['required']">Password is required</div>
+              <div *ngIf="password.errors['minlength']"> Password must be at least 8 characters, 1 upperCase, 2 numbers  </div>
+            </div>
+          </div> 
+          <div class="card-body">
+                <input type="file" (change)="fileChangeEvent($event)" />
+              <div class="text-center col-md-8" style="float:right">  
+                <image-cropper  [imageChangedEvent]="imageChangedEvent"  [maintainAspectRatio]="true"  [aspectRatio]="4 / 4"
+                [resizeToWidth]="256"  (imageCropped)="imageCropped($event)"  (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" 
+                (loadImageFailed)="loadImageFailed()"></image-cropper>
+              </div>
+            <div class="text-center col-md-4" > <img [src]="croppedImage" /> </div>       
+          </div>   
+          <div>          
+                  <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+                    <!-- Select File -->
+                    <input type="file" accept="image/*" (change)="showPreview($event)" />
+                    <!-- Image Preview -->
+                    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                      <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                    </div>                        
+                  </form>
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && loading">
+            Login failed: {{ message }}
+          </div>
+              
+        </form>     
+      <!-- <button type="submit" class="badge badge-success mb-2" (click)="updateUser()" >  Update </button> -->
+      <div class="mt-4 pt-2">
+        <button type="submit" class="btn btn-success btn-lg" (click)="updateUser()"> Update</button>
+       
+        <Button  class=" m-3 btn btn-primary btn-lg"> <a style="color:azure" routerLink="/users"> Cancel </a> </Button> 
+      </div>
+      <p>{{ message }}</p>
+     
+    </div>
+    <div *ngIf="!currentUser.id">
+      <br />
+      <p>Cannot access this User...</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body>
+  
+

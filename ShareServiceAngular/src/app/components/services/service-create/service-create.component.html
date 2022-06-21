@@ -1,0 +1,84 @@
+<section class="vh-100" style="background-color: #8fc4b7;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Service</p> 
+
+<form [formGroup]="FormService" (ngSubmit)="submitForm()">
+    <fieldset header="Service infos">   
+        <div class="form-group">
+            <i class="fas fa-user fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">Service</label> <br/>
+            <input type="text" formControlName="service" />
+            <span *ngIf="FormService.controls['service'].invalid && !FormService.controls['service'].errors" style="color : red">
+                service is required
+            </span>
+        </div>
+        <p>
+            <i class="fas fa-user fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">Description</label> <br/>
+            <input type="text" formControlName="description" />
+            <span *ngIf="FormService.controls['description'].invalid && !FormService.controls['description'].errors" style="color : red">
+                Description is required
+            </span>
+        </p>
+        <div>  
+            <label for="name"  style="color:blue ;">Add Image</label> <br/>     
+            <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
+                <!-- Select File -->
+                <input type="file" accept="image/*" (change)="showPreview($event)" />
+                <!-- Image Preview -->
+                <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                </div>                  
+            </form>  
+          </div>
+          <br/>
+          <div class="form-group">
+                <label for="QuartierId" style="color:blue" >User</label>
+                <select formControlName="UserId" class="form-control">
+                    <option disabled>Select User</option>
+                    <option>Choose User</option>
+                    <option *ngFor="let user of users" >{{user.username}}</option>
+                </select>
+                <span *ngIf="FormService.controls['UserId'].invalid && !FormService.controls['UserId'].errors" style="color : red">
+                    User is required
+                </span>
+            </div>
+        
+          <br/>
+          <div class="form-group">
+            <label for="Members" style="color:blue" >Add Members</label>
+            <select multiple formControlName="Members" class="form-control">
+                <option disabled>Select Members</option>
+                <option>Choose Members</option>
+                <option *ngFor="let member of members" [ngValue]="member.name" >{{member.name}}</option>
+            </select>
+            <span *ngIf="FormService.controls['Members'].invalid && !FormService.controls['Members'].errors" style="color : red">
+                competence is required
+            </span>
+          </div>
+    
+      <br/>
+       
+        
+    </fieldset>
+    
+    <button class="btn btn-primary btn-lg" type="submit" [disabled]="FormService.invalid">Valider</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+

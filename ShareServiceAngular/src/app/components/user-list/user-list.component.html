@@ -1,0 +1,71 @@
+<div class="list row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [(ngModel)]="username" name="name" placeholder="Search by username" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchEmail()"> Search </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <!-- ***************************************************************** -->
+    <div class="col-md-4" >
+      <h4>User List</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of users | paginate: { itemsPerPage:10, currentPage: p, totalItems: total } ; let i = index " [class.active]="i == currentIndex"
+          (click)="setActiveUser(user, i)" >
+         {{ user.username }}
+        </li>
+      </ul>
+      <div>         
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
+      </div> 
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeUser()"> Remove  </button>
+    </div>
+    <div class="col-md-8">
+      <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-8">
+              <div class="card rounded-3">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                  class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                  alt="Sample photo">
+                <div class="card-body p-4 p-md-5" style="background-color: #8fc4b7">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Personal Details</h3> 
+                      <div *ngIf="currentUser.id">
+                        <div class="card mb-3" style="max-width: 540px;">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                            
+                              <div class="card-img" >
+                                <img [src]="currentUser.image | image" height="200px" width="150px"> </div>  
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <div class="card-text"> <label><strong>Username:</strong></label>  {{ currentUser.username }} </div>
+                                <div class="card-text"> <label><strong>Email:</strong></label> {{ currentUser.email }} </div>     
+                                <div class="card-text"> <label><strong>Password:</strong></label> {{ currentUser.password }} </div>
+                                <label><strong>Roles:</strong></label>
+                                  <div *ngFor="let roles of currentUser.Roles">
+                                    <ul> <li> {{ roles.role }}  </li> </ul>
+                                    <div *ngIf="roles.role"> <a class="btn btn-warning btn-sm" routerLink="/users/{{ currentUser.id }}"> Edit </a> </div>    
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+      <div *ngIf="!currentUser"> <br /> <p>Please click on a User...</p> </div>
+    </div>
+    <!-- ******************************************************************* -->
+  </div>
+  
+

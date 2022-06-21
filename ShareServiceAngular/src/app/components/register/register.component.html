@@ -1,0 +1,93 @@
+<section class="vh-100" style="background-color: #8fc4b7;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registration Form</p>
+<div class="col-md-12">
+    <div class="card card-container">
+     
+      <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <i class="fas fa-user fa-lg me-3 fa-fw" style="color:blue ;"></i>
+          <label for="username"  style="color:blue ;">Name</label>
+          <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required
+            minlength="3" maxlength="50" #username="ngModel" />
+          <div class="alert-danger" *ngIf="username.errors && f.submitted">
+            <div *ngIf="username.errors['required']">Name is required</div>
+            <div *ngIf="username.errors['minlength']">
+              Name must be at least 3 characters
+            </div>
+            <div *ngIf="username.errors['maxlength']">
+              Name must be at most 50 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-envelope fa-lg me-3 fa-fw"  style="color:blue ;"></i>
+          <label for="email"  style="color:blue ;">Email</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+            #email="ngModel"/>
+          <div class="alert-danger" *ngIf="email.errors && f.submitted">
+            <div *ngIf="email.errors['required']">Email is required</div>
+            <div *ngIf="email.errors['email']">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-lock fa-lg me-3 fa-fw"  style="color:blue ;"></i>
+          <label for="password"  style="color:blue ;">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+            minlength="8" #password="ngModel" />
+          <div class="alert-danger" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['minlength']">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row align-items-center mb-4">
+          <i class="fas fa-key fa-lg me-3 fa-fw"  style="color:blue ;"></i>
+          <div class="form-outline flex-fill mb-0">
+            <input type="password" class="form-control" />
+            <label class="form-label" for="formGroup">Repeat your password</label>
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <input class="form-check-input me-2" type="checkbox" value="" height="15px" />
+          <label class="form-check-label " for="formGroup">
+            I agree all statements in <a href="#!">Terms of service</a>
+          </label>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+          Signup failed!<br />{{ errorMessage }}
+        </div>
+      </form>
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Your registration is successful!
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+    class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+    alt="Sample photo">
+  
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>

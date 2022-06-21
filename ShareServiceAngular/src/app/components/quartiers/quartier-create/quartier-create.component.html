@@ -1,0 +1,57 @@
+<section class="vh-100" style="background-color:#8fc4b7;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Quartier</p>
+  
+  <div class="col-md-12">
+      <div class="card card-container">
+        <form [formGroup]="FormQuartier" (ngSubmit)="submitForm()">
+            <fieldset header="Quartier infos">
+              
+                <div>
+                    <label> Quartier :</label> <br/>
+                    <input type="text" formControlName="quartier" />
+                    <span *ngIf="FormQuartier.controls['quartier'].invalid && !FormQuartier.controls['quartier'].errors" style="color : red">
+                        Nom est requis
+                    </span>
+                </div>
+                <div>
+                    <label>  CodePostale :</label> <br/>
+                    <input type="text" formControlName="codePostale" />
+                    <span *ngIf="FormQuartier.controls['codePostale'].invalid && !FormQuartier.controls['codePostale'].errors" style="color : red">
+                        code postale est requis
+                    </span>
+                </div>
+                <div>
+                    <label>  Localite :</label> <br/>
+                    <input type="text" formControlName="localite" />
+                    <span *ngIf="FormQuartier.controls['localite'].invalid && !FormQuartier.controls['localite'].errors" style="color : red">
+                        Nom est requis
+                    </span>
+                </div>              
+            </fieldset>           
+            <button class=" m-3 btn btn-primary btn-lg" type="submit" [disabled]="FormQuartier.invalid">Valider</button>           
+            <Button  class=" m-3 btn btn-primary btn-lg"> <a style="color:azure" routerLink="/quartiers"> Cancel </a> </Button>   
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+    class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+    alt="Sample photo">
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>

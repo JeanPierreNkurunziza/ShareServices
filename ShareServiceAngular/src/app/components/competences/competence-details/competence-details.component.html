@@ -1,0 +1,54 @@
+
+<div>
+    <section class="vh-100 gradient-custom" style="background-color: #8fc4b7" >
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Competence Edit Form</h3>
+    <div *ngIf="currentCompetence.id" class="edit-form">
+      <form>  
+        <div class="form-group">
+          <label for="competence">Competence</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="currentCompetence.competence" name="competence"/>
+        </div>
+          <div class="card-body">
+            <input type="file" (change)="fileChangeEvent($event)" />
+            <div class="text-center col-md-8" style="float:right"> 
+            <image-cropper  [imageChangedEvent]="imageChangedEvent"  [maintainAspectRatio]="true"  [aspectRatio]="4 / 4"
+            [resizeToWidth]="256"  (imageCropped)="imageCropped($event)"  (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+            </div>
+        <div class="text-center col-md-4" > <img [src]="croppedImage" /> </div>  
+        </div>   
+          <div>       
+            <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+                <!-- Select File -->
+                <input type="file" accept="image/*" (change)="showPreview($event)" />
+                <!-- Image Preview -->
+                <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                </div>                  
+            </form>  
+          </div>
+      </form>
+     <div class="mt-4 pt-2">
+      <button type="submit" class="btn btn-primary btn-lg" (click)="updateCompetence()"> Update</button>
+     
+      <Button  class=" m-3 btn btn-primary btn-lg"> <a style="color:azure" routerLink="/competences"> Cancel </a> </Button> 
+    </div> <p>{{ message }}</p> </div>
+    <div *ngIf="!currentCompetence.id">
+      <br />
+      <p>Cannot access this Competence...</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+</div>
+
+

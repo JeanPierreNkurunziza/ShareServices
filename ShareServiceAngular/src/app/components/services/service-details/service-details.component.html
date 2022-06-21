@@ -1,0 +1,72 @@
+<div>
+    <section class="vh-100 gradient-custom" style="background-color: #8fc4b7" >
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Service Edit Form</h3>
+    <div *ngIf="currentService.id" class="edit-form">
+      <form>  
+        <div class="form-group">
+          <label for="service">Service</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="currentService.service" name="service"/>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentService.description" name="description"/>
+          </div>
+          <div>   
+            <label for="numero">Service Image</label>    
+            <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+                <!-- Select File -->
+                <input type="file" accept="image/*" (change)="showPreview($event)" />
+                <!-- Image Preview -->
+                <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                </div>                  
+            </form>  
+          </div>
+     
+        <!-- ************************************************************************************** -->
+        <div class="form-group">
+        <form [formGroup]="userForm" >
+          <p>          
+            <select formControlName="UserId" [(ngModel)]="currentService.UserId">
+              <option [ngValue]="null" disabled>Select user</option>
+              <option *ngFor="let user of users" [ngValue]="user.id">{{user.username}}</option>
+            </select>          
+            <button type="submit">Submit</button> 
+          </p>          
+        </form>
+        <div class="form-group">
+            <div>
+            <label for="UserId">User</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentService.UserId" name="UserId"/>
+          </div>
+         </div>
+        </div>
+      <!-- ***************************************************************************************** -->
+      </form>
+     <div class="mt-4 pt-2">
+      <button type="submit" class="btn btn-primary btn-lg" (click)="updateService()"> Update</button>
+     
+      <Button  class=" m-3 btn btn-primary btn-lg"> <a style="color:azure" routerLink="/services"> Cancel </a> </Button> 
+    </div> <p><strong>{{ message }}</strong></p> </div>
+    <div *ngIf="!currentService.id">
+      <br />
+      <p>Cannot access this Service...</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+</div>
+
+
+
+
+

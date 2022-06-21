@@ -1,0 +1,115 @@
+<section class="vh-100" style="background-color: #8fc4b7;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Member</p> 
+
+<form [formGroup]="FormMember" (ngSubmit)="submitForm()">
+    <fieldset header="Member infos">   
+        <div class="form-group">
+            <i class="fas fa-user fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">Name</label> <br/>
+            <input type="text" formControlName="name" />
+            <span *ngIf="FormMember.controls['name'].invalid && !FormMember.controls['name'].errors" style="color : red">
+                Name is required
+            </span>
+        </div>
+        <p>
+            <i class="fas fa-user fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">UserName</label> <br/>
+            <input type="text" formControlName="surname" />
+            <span *ngIf="FormMember.controls['surname'].invalid && !FormMember.controls['surname'].errors" style="color : red">
+                Surname is required
+            </span>
+        </p>
+        <p>
+            <i class="fas fa-envelope fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">Email</label> <br/>
+            <input type="email" formControlName="email" />
+            <span *ngIf="FormMember.controls['email'].invalid && !FormMember.controls['email'].errors" style="color : red">
+                Email is required
+            </span> 
+        </p>
+        <p>
+            <i class="fas fa-phone fa-lg fa-fw"  style="color:blue ;"></i>
+            <label for="name"  style="color:blue ;">Phone</label> <br/>
+            <input type="text" formControlName="phone" />
+            <span *ngIf="FormMember.controls['phone'].invalid && !FormMember.controls['phone'].errors" style="color : red">
+                Phone is required
+            </span>
+        </p>
+        <p>
+            <label for="name"  style="color:blue ;">Rue</label> <br/>
+            <input type="text" formControlName="rue" />
+            <span *ngIf="FormMember.controls['rue'].invalid && !FormMember.controls['rue'].errors" style="color : red">
+                Street is required
+            </span>
+        </p>
+        <p>
+            <label for="name"  style="color:blue ;">Numero</label> <br/>
+            <input type="text" formControlName="numero" />
+            <span *ngIf="FormMember.controls['numero'].invalid && !FormMember.controls['numero'].errors" style="color : red">
+                Number is required
+            </span>
+        </p>
+        <div>  
+            <label for="name"  style="color:blue ;">Add Photo</label> <br/>     
+            <form [formGroup]="uploadForm" (ngSubmit)="submitForm()">
+                <!-- Select File -->
+                <input type="file" accept="image/*" (change)="showPreview($event)" />
+                <!-- Image Preview -->
+                <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                </div>                  
+            </form>  
+          </div>
+          <br/>
+          
+       
+            <div class="form-group">
+                <label for="QuartierId" style="color:blue" >Quartier</label>
+                <select formControlName="QuartierId" class="form-control">
+                    <option disabled>Select Quartier</option>
+                    <option>Choose Quartier</option>
+                    <option *ngFor="let quartier of quartiers" >{{quartier.quartier}}</option>
+                </select>
+                <span *ngIf="FormMember.controls['QuartierId'].invalid && !FormMember.controls['QuartierId'].errors" style="color : red">
+                    Number is required
+                </span>
+            </div>
+        
+          <br/>
+          <div class="form-group">
+            <label for="Competences" style="color:blue" >Add Copmpetence</label>
+            <select multiple formControlName="Competences" class="form-control">
+                <option disabled>Select Competence</option>
+                <option>Choose Competence</option>
+                <option *ngFor="let competence of competences" [ngValue]="competence.competence" >{{competence.competence}}</option>
+            </select>
+            <span *ngIf="FormMember.controls['Competences'].invalid && !FormMember.controls['Competences'].errors" style="color : red">
+                competence is required
+            </span>
+          </div>
+    
+      <br/>
+       
+        
+    </fieldset>
+    
+    <button class="btn btn-primary btn-lg" type="submit" [disabled]="FormMember.invalid">Valider</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+

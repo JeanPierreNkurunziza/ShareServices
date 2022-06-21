@@ -1,0 +1,75 @@
+<div class="list row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by competence" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="searchCompetence()" > Search </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+      <h4>Competence List</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let competence of competences | paginate: { itemsPerPage:10, currentPage: p, totalItems: total }; let i = index " [class.active]="i == currentIndex"
+          (click)="setActiveCompetence(competence, i)" > {{ competence.competence }} </li>
+      </ul>
+      <div>         
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
+      </div> 
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeCompetence(currentIndex)"> Remove </button>
+      <Button class="m-3 btn btn-sm btn-primary"> <a style="color:azure" routerLink="/AddCompetence"> Create </a> </Button>    
+                                
+    </div>
+    <div class="col-md-8">
+      <section class="h-100 h-custom" style="background-color: #8fc4b7;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-8">
+              <div class="card rounded-3">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+                  class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+                  alt="Sample photo">
+                <div class="card-body p-4 p-md-5" style="background-color: #8fc4b7">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Competence Details</h3> 
+                      <div *ngIf="currentCompetence.id">
+                        <div class="card mb-3" style="max-width: 540px;">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                            
+                              <div class="card-img" >
+                                <img [src]="currentCompetence.image | image" height="200px" width="150px"> </div>  
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <div class="card-text"> <label><strong>Title:</strong></label>  {{ currentCompetence.competence }} </div>
+                                <label><strong>Service Providers:</strong></label>
+                                  <div *ngFor="let item of currentCompetence.MemberCompetences">
+                                    <div *ngIf="item.Member">
+                                      <p> <label><strong>Name:</strong></label> {{item.Member.name}}</p>
+                                    </div>                                  
+                                    <ul>                             
+                                      <li>Jour Disponible:  {{ item.jour }}  </li> 
+                                      <li>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h </li>
+                                      <li>Qualification:  {{ item.niveauCompetence }}  </li>                                       
+                                   </ul>
+                                    <!-- une autre façon de recuperer une si c'est un objet 
+                                      dans une liste on ajoute le ? comme declarer dans le modèle <p>{{ item.Member?.name}}</p> -->
+                                   </div>
+                                   <div> <a class="badge badge-warning" routerLink="/competences/{{ currentCompetence.id }}"> Edit </a> </div>    
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+      <div *ngIf="!currentCompetence"> <br /> <p>Please click on Competence...</p> </div>
+    </div>
+    
+  </div>

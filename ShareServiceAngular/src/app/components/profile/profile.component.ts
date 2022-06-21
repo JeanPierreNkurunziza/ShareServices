@@ -1,0 +1,16 @@
+import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
+})
+export class ProfileComponent implements OnInit {
+  private roles: string[] = [];
+  currentUser: any;
+  constructor(private token: TokenStorageService) { }
+  ngOnInit(): void {
+    this.currentUser = this.token.getUser();
+  }
+}

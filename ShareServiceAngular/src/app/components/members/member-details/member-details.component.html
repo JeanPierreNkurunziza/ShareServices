@@ -1,0 +1,98 @@
+<div>
+    <section class="vh-100 gradient-custom" style="background-color: #8fc4b7" >
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Member Edit Form</h3>
+    <div *ngIf="currentMember.id" class="edit-form">
+      <form>  
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.name" name="name"/>
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.surname" name="surname"/>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.email" name="email"/>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.phone" name="phone"/>
+          </div>
+          <div class="form-group">
+            <label for="rue">Rue</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.rue" name="rue"/>
+          </div>
+          <div class="form-group">
+            <label for="numero">Numero</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.numero" name="numero"/>
+          </div>
+         
+          <div>   
+            <label for="numero">Member Photo</label>    
+            <form [formGroup]="uploadForm" (ngSubmit)="submit()">
+                <!-- Select File -->
+                <input type="file" accept="image/*" (change)="showPreview($event)" />
+                <!-- Image Preview -->
+                <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
+                </div>                  
+            </form>  
+          </div>
+     
+        <!-- ************************************************************************************** -->
+        <div class="form-group">
+        <form [formGroup]="quartierForm" >
+          <p>          
+            <select formControlName="QuartierId" [(ngModel)]="currentMember.QuartierId">
+              <option [ngValue]="null" disabled>Select Country</option>
+              <option *ngFor="let quartier of quartiers" [ngValue]="quartier.id">{{quartier.quartier}}</option>
+            </select>          
+            <button type="submit">Submit</button> 
+          </p>          
+        </form>
+        <div class="form-group">
+            <div>
+            <label for="QuartierId">Quartier</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentMember.QuartierId" name="QuartierId"/>
+          </div>
+         </div>
+        </div>
+      <!-- ***************************************************************************************** -->
+      </form>
+     <div class="mt-4 pt-2">
+      <button type="submit" class="btn btn-primary btn-lg" (click)="updateMember()"> Update</button>
+     
+      <Button  class=" m-3 btn btn-primary btn-lg"> <a style="color:azure" routerLink="/members"> Cancel </a> </Button> 
+    </div> <p><strong>{{ message }}</strong></p> </div>
+    <div *ngIf="!currentMember.id">
+      <br />
+      <p>Cannot access this Competence...</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+</div>
+
+ <!-- this part is for cropping image if you need to capture the part you need -->
+          <!-- <div class="card-body">
+            <input type="file" (change)="fileChangeEvent($event)" />
+            <div class="text-center col-md-8" style="float:right"> 
+            <image-cropper  [imageChangedEvent]="imageChangedEvent"  [maintainAspectRatio]="true"  [aspectRatio]="4 / 4"
+            [resizeToWidth]="256"  (imageCropped)="imageCropped($event)"  (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+            </div>
+        <div class="text-center col-md-4" > <img [src]="croppedImage" /> </div>  
+        </div>    -->
+
+
+
