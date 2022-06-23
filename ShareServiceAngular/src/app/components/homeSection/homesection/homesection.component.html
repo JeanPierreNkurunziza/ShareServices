@@ -1,13 +1,14 @@
 
-<div class="list row" style="background-color: #8fc4b7;">
-<div class="col-md-4"></div>
-<div class="col-md-6 row d-flex justify-content-center align-items-center h-100">
+<div class="list row" style="background-color: black;">
+<div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p></div>
+<div class="col-md-4 row d-flex justify-content-center align-items-center h-100">
     <div class="container-fluid" >  
-        <h1 style=" text-align: center;">Les service en ligne ....</h1>      
+        <h1 style=" text-align: center; color: blanchedalmond;">Les service en ligne ....</h1>      
         <ngb-carousel >
           <ng-template ngbSlide *ngFor="let image of competences; let i = index " active="i == currentIndex" >
             <div class="wrapper">
               <img [src]="image.image | image"  height="400px" width="650px" (click)="setActiveCompetence(image, i)"
+              (click)="triggerModal(modalData)"
               style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;">
             </div>
             <div class="carousel-caption">
@@ -17,16 +18,15 @@
 
             </div>
           </ng-template>
-        </ngb-carousel>  
-        <button class="btn btn-danger" (click)="triggerModal(modalData)">Open Modal</button>  
-        <ng-template #modalData let-modal>
+        </ngb-carousel>    
+       <ng-template #modalData let-modal>
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Les details d'un Service</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="background-color: #8fc4b7;">
             <div class="card-body">
               
                <div class="card-text" style=" text-align: center;"> <label><strong>Title:</strong></label>  {{ currentCompetence.competence }} </div>
@@ -45,8 +45,43 @@
                       <li><strong>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h</strong> </li>
                       <li><strong>Qualification:  {{ item.niveauCompetence }} </strong> </li>                                       
                    </ul>
-                    
-      
+
+                   <!-- button to show more infos of the person selected for services -->
+                   <button style="margin-left: 95%;" class="btn btn-primary" (click)="triggerModal(modalDetails)">More...</button>
+    <!-- ***************************************************************************************** -->
+                        <div>
+                          <ng-template ngbSlide #modalDetails let-modal>
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="modal-basic-title">More details of Service Provide</h4>
+                              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" style="background-color: #8fc4b7;">
+                              <div class="card-body">
+                                  <div *ngIf="item.Member">
+                                  <div [ngClass]="{'myg-blue': isBleu, 'myg-green':!isBleu}" class="card-text" style=" text-align: center;"> <label><strong>Name:</strong></label> 
+                                    {{ item.Member.name }}  {{item.Member.surname}} </div>
+                                  <div style=" text-align: center;"> <label><strong>Contact Infos</strong></label> </div>
+                                  
+                                    <ul>                             
+                                      <li> <strong> Email:  {{ item.Member.email }} </strong> </li> 
+                                      <li><strong>Phone:  {{ item.Member.phone }}</strong> </li>                           
+                                  </ul>
+                                  <div style=" text-align: center;"> <label><strong>Addresse</strong></label> </div>
+                                  <div *ngIf="item.Member.Quartier">
+                                    <ul style="list-style-type:none ;" >  
+                                      <li><strong>{{ item.Member.rue }} {{item.Member.numero}} </strong> </li>                            
+                                      <li> <strong>{{item.Member.Quartier.quartier}}  {{ item.Member.Quartier.codePostale }} </strong> </li> 
+                                      <li><strong>{{ item.Member.Quartier.localite }}</strong> </li>                                     
+                                  </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                          </ng-template>
+                      </div>
+    <!-- ****************************End of the infos***************************************************************** -->
                   </div>
                   </div>
                 </ng-template>
@@ -56,15 +91,51 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
           </div>
-        </ng-template>    
+        </ng-template> 
+        <!-- <ng-template #modalDetailsMember let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Les details complementaire</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body">
+                <ng-template ngbSlide *ngFor="let item of currentCompetence.MemberCompetences" >
+                  <div *ngIf="item.Member">
+                  <div class="card-text" style=" text-align: center;"> <label><strong>Name</strong></label> 
+                     {{ item.Member.name }}  {{item.Member.surname}} </div>
+                  <div style=" text-align: center;"> <label><strong>Contact Infos</strong></label> </div>
+                  <div class="carousel-caption">
+                    <ul>                             
+                      <li> <strong> Email:  {{ item.Member.email }} </strong> </li> 
+                      <li><strong>Phone:  {{ item.Member.phone }}h - {{ item.heureFin}}h</strong> </li>
+                      <li><strong>Addresse:  {{ item.Member.rue }} {{item.Member.numero}} </strong> </li>                                       
+                   </ul>
+                   <div *ngIf="item.Member.Quartier">
+                    <ul>                             
+                      <li> <strong>Quartier:{{item.Member.Quartier.quartier}}  {{ item.Member.Quartier.codePostale }} </strong> </li> 
+                      <li><strong>Localité:  {{ item.Member.Quartier.localite }}</strong> </li>
+                                                           
+                   </ul>
+                   </div>
+                  </div>
+                  </div>
+                </ng-template>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Close</button>
+          </div>
+        </ng-template>  -->
     </div>
 </div>
-<div class="col-md-2"></div>
+<div class="col-md-4" ><p class="spinner-border" style="font-size:34px; text-align: center; margin-top: 50%; margin-left: 50%;" [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Connect Me !!!</strong></p></div>
 </div>
 <!-- *********************** une autre partie pour *************************** -->
 <div class="list row">
     <div class="col-md-4">
-      <div class="input-group mb-3">
+      <div class="input-group mb-3" style="margin-top: 1%;">
         <input type="text" class="form-control" placeholder="Search by competence" />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" (click)="searchCompetence()" > Search </button>
@@ -73,10 +144,11 @@
     </div>
     <div class="col-md-6"></div>
     <div class="col-md-4">
-      <h4>Competence List</h4>
+      <h4 style="float:left ;">Competence List</h4>
+      <button style="margin-left: 31%; margin-bottom: 1%;" class="btn btn-primary" (click)="triggerModal(modalData)">Views Providers</button>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let competence of competences | paginate: { itemsPerPage:10, currentPage: p, totalItems: total }; let i = index " [class.active]="i == currentIndex"
-          (click)="setActiveCompetence(competence, i)" > {{ competence.competence }} </li>
+          (click)="setActiveCompetence(competence, i)" > <strong>{{ competence.competence }}</strong> </li>
       </ul>
       <div>         
         <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
@@ -110,13 +182,25 @@
                                 <label><strong>Service Providers:</strong></label>
                                   <div *ngFor="let item of currentCompetence.MemberCompetences">
                                     <div *ngIf="item.Member">
-                                      <p> <label><strong>Name:</strong></label> {{item.Member.name}}</p>
-                                    </div>                                  
+                                      <p> <label><strong>Name:</strong></label> {{item.Member.name}}</p>             
                                     <ul>                             
                                       <li>Jour Disponible:  {{ item.jour }}  </li> 
                                       <li>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h </li>
-                                      <li>Qualification:  {{ item.niveauCompetence }}  </li>                                       
+                                      <li>Qualification:  {{ item.niveauCompetence }}  </li> 
+                                      <li> <strong> Email:  {{ item.Member.email }} </strong> </li> 
+                                      <li><strong>Phone:  {{ item.Member.phone }}</strong> </li>
+                                      <li><strong>Addresse:  {{ item.Member.rue }} {{item.Member.numero}} </strong> </li>   
+                                                                          
                                    </ul>
+                                   <div *ngIf="item.Member.Quartier">
+                                    <ul>                             
+                                      <li> <strong>Quartier:{{item.Member.Quartier.quartier}}  {{ item.Member.Quartier.codePostale }} </strong> </li> 
+                                      <li><strong>Localité:  {{ item.Member.Quartier.localite }}</strong> </li>
+                                                                           
+                                   </ul>
+                                   </div>
+                                  </div>
+                                  
                                     <!-- une autre façon de recuperer une si c'est un objet 
                                       dans une liste on ajoute le ? comme declarer dans le modèle <p>{{ item.Member?.name}}</p> -->
                                    </div>
