@@ -9,6 +9,8 @@ import { QuartierService } from 'src/app/_services/quartier.service';
 import { Quartier } from 'src/app/models/quartier.model';
 import { Competence } from 'src/app/models/competence.model';
 import { CompetenceService } from 'src/app/_services/competence.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
   selector: 'app-member-create',
@@ -16,6 +18,14 @@ import { CompetenceService } from 'src/app/_services/competence.service';
   styleUrls: ['./member-create.component.scss']
 })
 export class MemberCreateComponent implements OnInit {
+  private roles: string[] = [];
+  isLoggedIn = false;
+  username?:string;
+  image?:string;
+  loginUser?:string;
+  email?:string 
+  password?:string;
+  useRole?='';
   currentMember: Member = {
     name: '',
     surname:'',
@@ -25,8 +35,7 @@ export class MemberCreateComponent implements OnInit {
     numero:'',
     image:'' ,
     QuartierId:'',
-    Competences:[]
-    
+    Competences:[],
   };
   FormMember!: FormGroup 
   isSuccessful = false;
@@ -35,12 +44,13 @@ export class MemberCreateComponent implements OnInit {
   imageURL?: string;
   uploadForm: FormGroup;
   quartiers?:Quartier[];
-  competences?:Competence[]
-
-  constructor(private memberservice : MemberService, private quartierservice: QuartierService,
+  competences?:Competence[];
+  
+  constructor( private memberservice : MemberService, private quartierservice: QuartierService,
     private _builder:FormBuilder, public fb: FormBuilder, private competenceservice: CompetenceService,
     private router: Router,
-    private ngZone: NgZone,) {
+    private ngZone: NgZone, private authService: AuthService,
+    private tokenStorageService: TokenStorageService) {
           this.uploadForm = this.fb.group({
             avatar: [null],
             name: ['']
@@ -59,15 +69,27 @@ export class MemberCreateComponent implements OnInit {
     image:new FormControl(),
     QuartierId: new FormControl(),
     Competences: new FormControl(),
-    // this.FormCompetence= this._builder.group({
-    //   competence: ['', Validators.required],
-    //   image:[null, Validators]
-    // })
+    
     })
     this.retrieveQuartier()
     this.retrieveCompetence()
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      
+      
+       this.roles = user.roles;
+       this.useRole= user.roles
+      this.username = user.username;
+      this.image=user.image;
+      this.email= user.email
+     
+    }
   }
- 
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
   submitForm(){
     let newMember: Member={
      name: this.FormMember.value['name'],   

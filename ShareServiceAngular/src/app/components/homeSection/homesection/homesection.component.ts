@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Competence } from 'src/app/models/competence.model';
 import { CompetenceService } from 'src/app/_services/competence.service';
 import { NgbCarouselConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
   selector: 'app-homesection',
@@ -11,6 +12,14 @@ import { NgbCarouselConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/
   providers: [NgbCarouselConfig]
 })
 export class HomesectionComponent implements OnInit {
+  private roles: string[] = [];
+  isLoggedIn = false;
+  username?:string;
+  image?:string;
+  loginUser?:string;
+  email?:string 
+  password?:string;
+  useRole?='';
   isBleu:boolean=false;
   closeModal:any;
   p: number = 1;
@@ -24,7 +33,8 @@ export class HomesectionComponent implements OnInit {
   nombreMember=0;
   constructor(private competenceservice : CompetenceService,
     private router: Router,
-    private ngZone: NgZone,config: NgbCarouselConfig, private modalService: NgbModal) { 
+    private ngZone: NgZone,config: NgbCarouselConfig, private modalService: NgbModal,
+    private tokenStorageService: TokenStorageService) { 
     config.interval = 3000;
     config.keyboard = true;
     config.pauseOnHover = true;
@@ -36,6 +46,22 @@ export class HomesectionComponent implements OnInit {
     setInterval(()=>{
       this.isBleu=!this.isBleu;
     }, 1000);
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      
+      
+       this.roles = user.roles;
+       this.useRole= user.roles
+      this.username = user.username;
+      this.image=user.image;
+      this.email= user.email
+     
+    }
+  }
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
   pageChangeEvent(event: number){
     this.p = event;

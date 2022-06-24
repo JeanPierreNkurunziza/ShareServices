@@ -26,17 +26,9 @@ export class SidebarComponent implements OnInit {
       
        this.roles = user.roles;
        this.useRole= user.roles
-      // this.showAddUsers=true;
-      // if(user.isAdmin){
-      //   this.showAddFournitures=true;
-      // }
-     
-     //this.showAddUsers = this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
       this.username = user.username;
       this.image=user.image;
-      // this.loginUser= user.email;
-      // this.loginPassword= user.password
+     
     }
     else{
       this.useRole="ROLE_VISITOR";

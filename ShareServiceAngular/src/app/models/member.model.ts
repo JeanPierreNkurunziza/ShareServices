@@ -19,5 +19,6 @@ export class Member {
     Competences?:Competence[];
     Services?:Service[];
     MemberCompetences?:MemberCompetence[];
-    ServiceDemande?:ServiceDemande
+    ServiceDemande?:ServiceDemande;
+   
 }

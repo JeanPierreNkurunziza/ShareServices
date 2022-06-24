@@ -1,6 +1,11 @@
 
 <div class="list row" style="background-color: black;">
-<div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p></div>
+<div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" 
+  [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p>
+  <button style="margin-left: 40%;" class="btn btn-primary"
+  (click)="triggerModal(modalServiceCreate)">Ask Service</button>
+ 
+</div>
 <div class="col-md-4 row d-flex justify-content-center align-items-center h-100">
     <div class="container-fluid" >  
         <h1 style=" text-align: center; color: blanchedalmond;">Les service en ligne ....</h1>      
@@ -130,7 +135,42 @@
         </ng-template>  -->
     </div>
 </div>
-<div class="col-md-4" ><p class="spinner-border" style="font-size:34px; text-align: center; margin-top: 50%; margin-left: 50%;" [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Connect Me !!!</strong></p></div>
+<div class="col-md-4" ><p class="spinner-border" style="font-size:34px; text-align: center; margin-top: 50%; margin-left: 50%;"
+   [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Connect Me !!!</strong></p>
+   <button style="margin-left: 40%;" class="btn btn-primary"
+    (click)="triggerModal(modalMemberCreate)">Be Member</button>
+    
+        <div>
+            <ng-template ngbSlide #modalMemberCreate let-modal>
+              <div class="modal-header" style="width: 400px;">
+                <h4 class="modal-title" id="modal-basic-title">Member Forms</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body" style="background-color: #8fc4b7;">
+                <div class="card-body">
+                    <app-member-create></app-member-create>
+                </div>
+              </div>
+            </ng-template>
+        </div>
+        <div>
+          <ng-template ngbSlide #modalServiceCreate let-modal>
+            <div class="modal-header" style="width: 400px;">
+              <h4 class="modal-title" id="modal-basic-title">Service Forms</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="background-color: #8fc4b7;">
+              <div class="card-body">
+                  <app-home-service-create></app-home-service-create>
+              </div>
+            </div>
+          </ng-template>
+      </div>
+</div>
 </div>
 <!-- *********************** une autre partie pour *************************** -->
 <div class="list row">
@@ -157,7 +197,7 @@
       <Button class="m-3 btn btn-sm btn-primary"> <a style="color:azure" routerLink="/AddCompetence"> Create </a> </Button>    
                                 
     </div>
-    <div class="col-md-8">
+    <!-- <div class="col-md-8">
       <section class="h-100 h-custom" style="background-color: #8fc4b7;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -200,10 +240,7 @@
                                    </ul>
                                    </div>
                                   </div>
-                                  
-                                    <!-- une autre façon de recuperer une si c'est un objet 
-                                      dans une liste on ajoute le ? comme declarer dans le modèle <p>{{ item.Member?.name}}</p> -->
-                                   </div>
+                                     </div>
                                    <div> <a class="badge badge-warning" routerLink="/competences/{{ currentCompetence.id }}"> Edit </a> </div>    
                                 
                               </div>
@@ -218,7 +255,11 @@
             </div>
           </section>
       <div *ngIf="!currentCompetence"> <br /> <p>Please click on Competence...</p> </div>
+    </div> -->
+    <!-- ***************test si la partie members va etre integree *********************** -->
+    <div class="col-md-8">
+      <app-home-member-side></app-home-member-side>
     </div>
-    
+    <!-- ***********************la fin de la partie integre****************************** -->
   </div>
 

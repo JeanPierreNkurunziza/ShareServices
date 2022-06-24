@@ -40,6 +40,8 @@ import { ServiceListComponent } from './components/services/service-list/service
 import { ServiceCreateComponent } from './components/services/service-create/service-create.component';
 import { HomesectionComponent } from './components/homeSection/homesection/homesection.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeServiceCreateComponent } from './components/homeSection/home-service-create/home-service-create.component';
+import { HomeMemberSideComponent } from './components/homeSection/home-member-side/home-member-side.component';
 //import { Select2Module } from 'ng2-select2';
 //import { Select2Module } from 'ng2-select2';
 // import { Select2Component, Select2Module } from 'ng2-select2';
@@ -75,6 +77,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ServiceListComponent,
     ServiceCreateComponent,
     HomesectionComponent,
+    HomeServiceCreateComponent,
+    HomeMemberSideComponent,
     
   ],
   imports: [

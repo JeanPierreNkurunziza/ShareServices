@@ -6,14 +6,23 @@ import { Service } from 'src/app/models/service.model';
 import { User } from 'src/app/models/user.model';
 import { MemberService } from 'src/app/_services/member.service';
 import { ServiceService } from 'src/app/_services/service.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
-  selector: 'app-service-create',
-  templateUrl: './service-create.component.html',
-  styleUrls: ['./service-create.component.scss']
+  selector: 'app-home-service-create',
+  templateUrl: './home-service-create.component.html',
+  styleUrls: ['./home-service-create.component.scss']
 })
-export class ServiceCreateComponent implements OnInit {
+export class HomeServiceCreateComponent implements OnInit {
+  private roles: string[] = [];
+  isLoggedIn = false;
+  username?:string;
+  image?:string;
+  loginUser?:string;
+
+  password?:string;
+  useRole?='';
   currentService: Service = {
     service: '',
     description:'',
@@ -34,7 +43,7 @@ export class ServiceCreateComponent implements OnInit {
   constructor(private memberservice : MemberService, private userservice: UserService,
     private _builder:FormBuilder, public fb: FormBuilder, private serviceService: ServiceService,
     private router: Router,
-    private ngZone: NgZone,) {
+    private ngZone: NgZone, private tokenStorageService: TokenStorageService) {
           this.uploadForm = this.fb.group({
             avatar: [null],
             name: ['']
@@ -52,7 +61,26 @@ export class ServiceCreateComponent implements OnInit {
     
     })
     this.retrieveUser()
-    this.retrieveMembers()
+    this.retrieveMembers();
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      
+      
+       this.roles = user.roles;
+       this.useRole= user.roles
+      this.username = user.username;
+      this.image=user.image;
+     
+    }
+    // else{
+    //   this.useRole="ROLE_VISITOR";
+    //   // this.username="Visitor"
+    // }
+  }
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
  
   submitForm(){
@@ -60,7 +88,7 @@ export class ServiceCreateComponent implements OnInit {
      service: this.FormService.value['service'],   
      description:this.FormService.value['description'],
      image: this.imageURL,
-     UserId:this.FormService.value['UserId'],
+     UserId:this.username,
      Members: this.FormService.value['Members']
     }
    
@@ -121,5 +149,6 @@ showPreview(event:any) {
       }
   reader.readAsDataURL(file)
 }
+
 
 }
