@@ -36,6 +36,7 @@ export class MemberCreateComponent implements OnInit {
     image:'' ,
     QuartierId:'',
     Competences:[],
+    
   };
   FormMember!: FormGroup 
   isSuccessful = false;

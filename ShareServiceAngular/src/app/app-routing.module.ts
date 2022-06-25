@@ -23,7 +23,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { UserListComponent } from './components/user-list/user-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'users', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'users', component: UserListComponent },
   {path : 'register', component: RegisterComponent},
   {path : 'login', component: LoginComponent},

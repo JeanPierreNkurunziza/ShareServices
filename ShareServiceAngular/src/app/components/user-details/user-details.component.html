@@ -12,8 +12,8 @@
       <form *ngIf="!loading" name="form" (ngSubmit)="f.form.valid && updateUser()" #f="ngForm" novalidate>
         <div class="form-group">
           <i class="nav-icons fa fa-user" style="color:blue ;"></i>
-          <label for="name" class="m-3" style="color:blue ;" >Name</label>
-          <input type="text" class="form-control" id="name" [(ngModel)]="currentUser.username" name="name"/>
+          <label for="username" class="m-3" style="color:blue ;" >Name</label>
+          <input type="text" class="form-control" id="username" [(ngModel)]="currentUser.username" name="username"/>
         </div>
         <div class="form-group" style="color:blue ;">
           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -34,7 +34,7 @@
               <div *ngIf="password.errors['minlength']"> Password must be at least 8 characters, 1 upperCase, 2 numbers  </div>
             </div>
           </div> 
-          <div class="card-body">
+          <!-- <div class="card-body">
                 <input type="file" (change)="fileChangeEvent($event)" />
               <div class="text-center col-md-8" style="float:right">  
                 <image-cropper  [imageChangedEvent]="imageChangedEvent"  [maintainAspectRatio]="true"  [aspectRatio]="4 / 4"
@@ -42,7 +42,7 @@
                 (loadImageFailed)="loadImageFailed()"></image-cropper>
               </div>
             <div class="text-center col-md-4" > <img [src]="croppedImage" /> </div>       
-          </div>   
+          </div>    -->
           <div>          
                   <form [formGroup]="uploadForm" (ngSubmit)="submit()">
                     <!-- Select File -->
@@ -52,6 +52,11 @@
                       <img [src]="imageURL" [alt]="uploadForm.value.name" height="200px" width="200px">
                     </div>                        
                   </form>
+          </div>
+          <div class="form-group" *ngFor="let item of currentUser.Roles">
+            <i class="nav-icons fa fa-user" style="color:blue ;"></i>
+            <label for="Roles" class="m-3" style="color:blue ;" >Role</label>
+            <input type="text" class="form-control" id="Roles" [(ngModel)]="item.role" name="Roles"/>
           </div>
           <div class="alert alert-danger" role="alert" *ngIf="f.submitted && loading">
             Login failed: {{ message }}

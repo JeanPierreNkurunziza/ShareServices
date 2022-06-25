@@ -1,4 +1,5 @@
 import { Role } from "./role.model";
+import { Service } from "./service.model";
 
 export class User {
     
@@ -8,5 +9,6 @@ export class User {
     password?: string;
 
     Roles ?: Role[];
-    image?: string
+    image?: string;
+    Services?:Service[]
 }

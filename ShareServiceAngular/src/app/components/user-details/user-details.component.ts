@@ -63,8 +63,9 @@ export class UserDetailsComponent implements OnInit {
          // return res.status(200).send({ message: "User upadated successful." });
            console.log(response.message);
           // this.message=JSON.parse(response.message)
-            
+          this.reloadCurrentRoute();
           this.message = 'This user was updated successfully!';
+         
          
         },
        error: error => {
@@ -115,6 +116,12 @@ cropperReady() {
 }
 loadImageFailed() {
     /* show message */
+}
+reloadCurrentRoute() {
+  let currentUrl = this.router.url;
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+  });
 }
 
 }

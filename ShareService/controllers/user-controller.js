@@ -214,13 +214,20 @@ exports.update= (req, res, next)=>{
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        image:req.body.image
+        image:req.body.image,
+        Roles:req.body.Roles
       })
-      .then((data)=>{
-              if (data) {
-                return res.status(200).send({ message: "User upadated successful." });
-              }
-          })
+      .then(user => {
+        if (req.body.Roles) {
+          //get the list of roles from the roles
+          roleRepository.getListRole(req.body.Roles)
+          .then(roles => {
+            user.setRoles(roles).then(() => {
+              res.send({ message: "User was registered successfully!" });
+            });
+          });
+        }
+       })
       .catch(err => {
      
             res.status(600).send({ message: err.message });

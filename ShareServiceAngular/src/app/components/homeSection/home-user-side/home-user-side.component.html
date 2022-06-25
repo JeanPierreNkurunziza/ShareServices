@@ -1,28 +1,19 @@
 <div class="list row">
     <div class="col-md-4">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="username" name="name" placeholder="Search by username" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="searchEmail()"> Search </button>
-        </div>
+        <ul class="list-group" *ngFor="let user of users ; let i = index ">
+            <li class="list-group-item" 
+             [class.active]="i == currentIndex"
+              (click)="setActiveUser(user, i)"  *ngIf="username==user.username">
+             {{ user.username }}
+            </li>
+          </ul>
       </div>
     </div>
     <div class="col-md-6"></div>
     <!-- ***************************************************************** -->
-    <div class="col-md-4" >
-      <h4>User List</h4>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let user of users | paginate: { itemsPerPage:10, currentPage: p, totalItems: total } ; let i = index " [class.active]="i == currentIndex"
-          (click)="setActiveUser(user, i)" >
-         {{ user.username }}
-        </li>
-      </ul>
-      <div>         
-        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
-      </div> 
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeUser()"> Remove  </button>
-    </div>
-    <div class="col-md-8">
+   
+    <div class="col-md-11">
       <section class="h-100 h-custom" style="background-color: #8fc4b7;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -89,4 +80,5 @@
     <!-- ******************************************************************* -->
   </div>
   
+
 

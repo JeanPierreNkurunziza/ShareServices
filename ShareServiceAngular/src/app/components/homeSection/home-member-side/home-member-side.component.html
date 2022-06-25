@@ -161,7 +161,10 @@
                                     <!-- <div *ngIf="item.Member">
                                       <p> <label><strong>Name:</strong></label> {{item.Member.name}}</p>
                                     </div>                                   -->
-                                    <ul>                             
+                                    <ul> 
+                                      <div class="card-img" >
+                                        <img [src]="item.image | image" height="200px" width="150px"> 
+                                      </div>                            
                                       <li>Service demandé:  {{ item.service }}  </li> 
                                       <!-- <li>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h </li> -->
                                       <li>Description:  {{ item.description }}  </li>                                       

@@ -144,6 +144,9 @@ export class HomesectionComponent implements OnInit {
         this.router.navigate([currentUrl]);
     });
   }
+  myFunction() {
+    alert("Please register first!");
+  }
 
 }
 

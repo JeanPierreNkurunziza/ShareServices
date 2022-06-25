@@ -6,13 +6,17 @@ exports.getAll =()=>{
         attributes :{
             exclude : ['createdAt', 'updatedAt']
         },
-        include:[{
+        include:[
+            {
             model : db.Role, 
             attributes:['role'],
             through: {
               attributes: []
             }
-         },{ model: db.Service, attributes:['service','description'] }]
+         },
+         { model: db.Service, 
+            include:{model : db.ServiceDemande, 
+            include:{model: db.Member} }}]
         })
             
 }

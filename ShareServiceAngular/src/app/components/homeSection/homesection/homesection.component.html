@@ -2,8 +2,19 @@
 <div class="list row" style="background-color: black;">
 <div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" 
   [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p>
-  <button style="margin-left: 40%;" class="btn btn-primary"
-  (click)="triggerModal(modalServiceCreate)">Ask Service</button>
+  <div *ngIf="username">
+   
+    <button   style="margin-left: 40%;" class="btn btn-primary"
+    (click)="triggerModal(modalServiceCreate)">Ask Service</button>
+   
+  </div>
+  <div *ngIf="!username">
+   
+    <button   style="margin-left: 40%;" class="btn btn-primary"
+    (click)="myFunction()">Ask Service</button>
+   
+  </div>
+  
  
 </div>
 <div class="col-md-4 row d-flex justify-content-center align-items-center h-100">
@@ -137,9 +148,15 @@
 </div>
 <div class="col-md-4" ><p class="spinner-border" style="font-size:34px; text-align: center; margin-top: 50%; margin-left: 50%;"
    [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Connect Me !!!</strong></p>
-   <button style="margin-left: 40%;" class="btn btn-primary"
+   
+   <div *ngIf="username">
+    <button style="margin-left: 40%;" class="btn btn-primary"
     (click)="triggerModal(modalMemberCreate)">Be Member</button>
-    
+  </div>
+  <div *ngIf="!username">
+    <button   style="margin-left: 40%;" class="btn btn-primary"
+    (click)="myFunction()">Ask Service</button>
+  </div>
         <div>
             <ng-template ngbSlide #modalMemberCreate let-modal>
               <div class="modal-header" style="width: 400px;">
@@ -193,9 +210,9 @@
       <div>         
         <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
       </div> 
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeCompetence(currentIndex)"> Remove </button>
+      <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeCompetence(currentIndex)"> Remove </button>
       <Button class="m-3 btn btn-sm btn-primary"> <a style="color:azure" routerLink="/AddCompetence"> Create </a> </Button>    
-                                
+                                         -->
     </div>
     <!-- <div class="col-md-8">
       <section class="h-100 h-custom" style="background-color: #8fc4b7;">
@@ -258,7 +275,13 @@
     </div> -->
     <!-- ***************test si la partie members va etre integree *********************** -->
     <div class="col-md-8">
-      <app-home-member-side></app-home-member-side>
+      <div *ngIf="useRole=='ROLE_MEMBER'">
+        <app-home-member-side></app-home-member-side>
+      </div>
+      <div *ngIf="useRole=='ROLE_USER'">
+        <app-home-user-side></app-home-user-side>
+      </div>
+     
     </div>
     <!-- ***********************la fin de la partie integre****************************** -->
   </div>
