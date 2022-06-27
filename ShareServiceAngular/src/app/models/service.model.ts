@@ -10,5 +10,6 @@ export class Service {
     UserId?:any;
     User?:User;
     Members?:Member[];
-    ServiceDemandes?:ServiceDemande[]
+    ServiceDemandes?:ServiceDemande[];
+    ServiceDemande?:ServiceDemande
 }

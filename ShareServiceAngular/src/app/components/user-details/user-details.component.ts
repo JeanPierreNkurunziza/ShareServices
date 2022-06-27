@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/_services/user.service';
@@ -17,6 +17,8 @@ export class UserDetailsComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   loading=false
+  isSuccessful = false;
+  formFailed = false;
   
   currentUser: User = {
     username: '',
@@ -30,7 +32,8 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(private userservice: UserService,
     private route: ActivatedRoute,
-    private router: Router, private httpClient: HttpClient, public fb: FormBuilder) { 
+    private router: Router, private httpClient: HttpClient, public fb: FormBuilder,
+    private ngZone: NgZone,) { 
       this.uploadForm = this.fb.group({
         avatar: [null],
         name: ['']
@@ -57,17 +60,15 @@ export class UserDetailsComponent implements OnInit {
     
     this.userservice.update(this.currentUser.id, this.currentUser)
     
-      .subscribe({
-        
-        next :response => {
-         // return res.status(200).send({ message: "User upadated successful." });
-           console.log(response.message);
-          // this.message=JSON.parse(response.message)
-          this.reloadCurrentRoute();
-          this.message = 'This user was updated successfully!';
-         
-         
-        },
+    .subscribe({ 
+      next :response => {
+         console.log(response);
+         if(this.isSuccessful = true){
+          this.ngZone.run(() => this.router.navigateByUrl('/users'))
+          this.message = 'This user was updated successfully!';         
+          } 
+        this.formFailed = false;
+      },
        error: error => {
         this.message = 'Try to reflesh your password!';
           this.message = JSON.parse(error.error).message;

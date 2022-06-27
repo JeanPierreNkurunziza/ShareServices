@@ -205,7 +205,8 @@
       <button style="margin-left: 31%; margin-bottom: 1%;" class="btn btn-primary" (click)="triggerModal(modalData)">Views Providers</button>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let competence of competences | paginate: { itemsPerPage:10, currentPage: p, totalItems: total }; let i = index " [class.active]="i == currentIndex"
-          (click)="setActiveCompetence(competence, i)" > <strong>{{ competence.competence }}</strong> </li>
+          (click)="setActiveCompetence(competence, i)" > 
+          <strong>{{ competence.competence }} </strong> </li>
       </ul>
       <div>         
         <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
@@ -275,12 +276,13 @@
     </div> -->
     <!-- ***************test si la partie members va etre integree *********************** -->
     <div class="col-md-8">
-      <div *ngIf="useRole=='ROLE_MEMBER'">
-        <app-home-member-side></app-home-member-side>
-      </div>
       <div *ngIf="useRole=='ROLE_USER'">
         <app-home-user-side></app-home-user-side>
       </div>
+      <div *ngIf="useRole=='ROLE_MEMBER' || 'ROLE_ADMIN,ROLE_MEMBER'">
+        <app-home-member-side></app-home-member-side>
+      </div>
+     
      
     </div>
     <!-- ***********************la fin de la partie integre****************************** -->
