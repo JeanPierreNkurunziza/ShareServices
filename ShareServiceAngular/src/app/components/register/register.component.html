@@ -60,12 +60,14 @@
         </div>
         <div class="col-md-6 mb-4">
 
-          <select class="select">
-            <option value="1" disabled>Roles</option>
-            <option value="2">user</option>
-            <option value="3">member</option>
-           
-          </select>
+          <div class="form-group">
+            <label for="Roles" style="color:blue" >Add Roles</label>
+            <select multiple name="Roles" class="form-control" name="Roles" [(ngModel)]="form.Roles">
+                <option disabled>Select Members</option>
+                <option>Choose Roles</option>
+                <option name="Roles" *ngFor="let role of roles" [ngValue]="role.role" >{{role.role}}</option>
+            </select>
+          </div>
 
         </div>
 

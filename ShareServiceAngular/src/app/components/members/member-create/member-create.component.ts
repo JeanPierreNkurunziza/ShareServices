@@ -111,7 +111,7 @@ export class MemberCreateComponent implements OnInit {
         next: data => {
           console.log(data);
           if(this.isSuccessful = true){
-            this.ngZone.run(() => this.router.navigateByUrl('/members'))
+            this.ngZone.run(() => this.router.navigateByUrl('/home'))
           }
          // this.isSuccessful = true;
           this.formFailed = false;

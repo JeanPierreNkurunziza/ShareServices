@@ -27,12 +27,13 @@ exports.signup = (req, res) => {
   if (req.body.username > limitString(req.body.username, 50)){
     return res.status(404).send({ message: "You excedeed the number of the characters (50) required. " });
   }
-  if (req.body.email > limitString(req.body.email, 100)){
-    return res.status(404).send({ message: "You excedeed the number of the characters (100) required. " });
-  }
   if(!req.body.email){
     return res.status(404).send({ message:"email not provided"})
   }
+  if (req.body.email > limitString(req.body.email, 100)){
+    return res.status(404).send({ message: "You excedeed the number of the characters (100) required. " });
+  }
+  
   if(!emailValidator.validate(req.body.email)){
         return res.status(400).send({message: 'Invalid email'});
    }
@@ -58,7 +59,7 @@ exports.signup = (req, res) => {
       if (req.body.Roles) {
         //get the list of roles from the roles
         roleRepository.getListRole(req.body.Roles)
-        .then(roles => {
+        .then(roles => { 
           user.setRoles(roles).then(() => {
             res.send({ message: "User was registered successfully!" });
           });

@@ -21,8 +21,9 @@
               <a href="#" class="d-block">{{ username }}</a>  
             </div>  
           </div>  
-          <!-- Sidebar Menu -->  
-          <nav class="mt-2">  
+          <!-- Sidebar Menu --> 
+          <div *ngIf="useRole =='ROLE_ADMIN'"> 
+          <nav class="mt-2" >  
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">  
               <!-- Add icons to the links using the .nav-icon class  
               with font-awesome or any other icon font library -->  
@@ -84,7 +85,8 @@
                 </a>  
               </li>
             </ul>  
-          </nav>  
+          </nav> 
+        </div> 
           <!-- /.sidebar-menu -->  
         </div>  
         <!-- /.sidebar -->  

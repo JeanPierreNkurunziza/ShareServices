@@ -64,7 +64,7 @@ export class UserDetailsComponent implements OnInit {
       next :response => {
          console.log(response);
          if(this.isSuccessful = true){
-          this.ngZone.run(() => this.router.navigateByUrl('/users'))
+          this.ngZone.run(() => this.router.navigateByUrl('/home'))
           this.message = 'This user was updated successfully!';         
           } 
         this.formFailed = false;

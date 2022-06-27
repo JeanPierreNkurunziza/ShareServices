@@ -1,5 +1,5 @@
 
-<div class="list row" style="background-color: black;">
+<div class="list row" style="background-color: rgb(241, 237, 237)">
 <div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" 
   [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p>
   <div *ngIf="username">
@@ -279,8 +279,12 @@
       <div *ngIf="useRole=='ROLE_USER'">
         <app-home-user-side></app-home-user-side>
       </div>
-      <div *ngIf="useRole=='ROLE_MEMBER' || 'ROLE_ADMIN,ROLE_MEMBER'">
+      <div *ngIf="useRole=='ROLE_MEMBER'">
         <app-home-member-side></app-home-member-side>
+      </div>
+      <div *ngIf="useRole=='ROLE_USER,ROLE_ADMIN,ROLE_MEMBER'">
+        <app-home-member-side></app-home-member-side>
+        <app-home-user-side></app-home-user-side>
       </div>
      
      

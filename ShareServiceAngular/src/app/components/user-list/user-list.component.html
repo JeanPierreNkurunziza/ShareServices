@@ -41,16 +41,17 @@
                               <div class="card-img" >
                                 <img [src]="currentUser.image | image" height="200px" width="150px"> </div>  
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8" >
                               <div class="card-body">
                                 <div class="card-text"> <label><strong>Username:</strong></label>  {{ currentUser.username }} </div>
                                 <div class="card-text"> <label><strong>Email:</strong></label> {{ currentUser.email }} </div>     
                                 <div class="card-text"> <label><strong>Password:</strong></label> {{ currentUser.password }} </div>
                                 <label><strong>Roles:</strong></label>
-                                  <div *ngFor="let roles of currentUser.Roles">
+                                  <div *ngFor="let roles of currentUser.Roles" >
                                     <ul> <li> {{ roles.role }}  </li> </ul>
-                                    <div *ngIf="roles.role"> <a class="btn btn-warning btn-sm" routerLink="/users/{{ currentUser.id }}"> Edit </a> </div>    
                                   </div>
+                                  <!-- <div *ngIf="roles.role"> <a class="btn btn-warning btn-sm" routerLink="/users/{{ currentUser.id }}"> Edit </a> </div>     -->
+                                
                                   <label><strong>Services:</strong></label>
                                   <div *ngFor="let service of currentUser.Services">
                                     <ul> <li> {{ service.service }}  </li>
