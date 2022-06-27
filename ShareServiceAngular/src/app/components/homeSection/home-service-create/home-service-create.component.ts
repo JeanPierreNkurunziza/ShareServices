@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
+import { ServiceDemande } from 'src/app/models/service-demande.model';
 import { Service } from 'src/app/models/service.model';
 import { User } from 'src/app/models/user.model';
 import { MemberService } from 'src/app/_services/member.service';
@@ -16,10 +17,13 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class HomeServiceCreateComponent implements OnInit {
   private roles: string[] = [];
+ 
   isLoggedIn = false;
   username?:string;
   image?:string;
   loginUser?:string;
+  ServiceDemande?:ServiceDemande[];
+  FormServiceDemande!:FormGroup;
 
   password?:string;
   useRole?='';
@@ -72,11 +76,8 @@ export class HomeServiceCreateComponent implements OnInit {
       this.username = user.username;
       this.image=user.image;
      
-    }
-    // else{
-    //   this.useRole="ROLE_VISITOR";
-    //   // this.username="Visitor"
-    // }
+    };
+    
   }
   logout(): void {
     this.tokenStorageService.signOut();
@@ -149,6 +150,5 @@ showPreview(event:any) {
       }
   reader.readAsDataURL(file)
 }
-
 
 }

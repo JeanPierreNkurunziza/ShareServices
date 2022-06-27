@@ -1,5 +1,5 @@
 
-<div class="list row" style="background-color: rgb(241, 237, 237)">
+<div class="list row" style="background-color: rgb(227, 222, 231)">
 <div class="col-md-4"><p style="font-size:34px; text-align: center; margin-top: 30%;" 
   [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Try me and I will not disappoint u !!!</strong></p>
   <div *ngIf="username">
@@ -19,7 +19,7 @@
 </div>
 <div class="col-md-4 row d-flex justify-content-center align-items-center h-100">
     <div class="container-fluid" >  
-        <h1 style=" text-align: center; color: blanchedalmond;">Les service en ligne ....</h1>      
+        <h1 style=" text-align: center; color: rgb(61, 57, 57);">Les service en ligne ....</h1>      
         <ngb-carousel >
           <ng-template ngbSlide *ngFor="let image of competences; let i = index " active="i == currentIndex" >
             <div class="wrapper">
@@ -149,13 +149,13 @@
 <div class="col-md-4" ><p class="spinner-border" style="font-size:34px; text-align: center; margin-top: 50%; margin-left: 50%;"
    [ngClass]="{'myg-white': isBleu, 'myg-green':!isBleu}"><strong>Connect Me !!!</strong></p>
    
-   <div *ngIf="username">
+   <div *ngIf="username" >
     <button style="margin-left: 40%;" class="btn btn-primary"
     (click)="triggerModal(modalMemberCreate)">Be Member</button>
   </div>
-  <div *ngIf="!username">
-    <button   style="margin-left: 40%;" class="btn btn-primary"
-    (click)="myFunction()">Ask Service</button>
+  <div *ngIf="!username" >
+    <button style="margin-left: 40%;" class="btn btn-primary"
+    (click)="myFunction()">Became Member </button>
   </div>
         <div>
             <ng-template ngbSlide #modalMemberCreate let-modal>

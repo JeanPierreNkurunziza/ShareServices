@@ -145,7 +145,7 @@ export class HomesectionComponent implements OnInit {
     });
   }
   myFunction() {
-    alert("Please register first!");
+    alert("Please Sign up first!");
   }
 
 }

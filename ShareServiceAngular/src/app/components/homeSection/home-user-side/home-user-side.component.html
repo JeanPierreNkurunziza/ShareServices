@@ -1,16 +1,18 @@
 <div class="list row">
     <div class="col-md-4">
+      
+    </div>
+    <div class="col-md-6">
       <div class="input-group mb-3">
-        <ul class="list-group" *ngFor="let user of users ; let i = index ">
+        <ul style="text-align:left ;" class="list-group" *ngFor="let user of users ; let i = index ">
             <li class="list-group-item" 
              [class.active]="i == currentIndex"
               (click)="setActiveUser(user, i)"  *ngIf="username==user.username">
-             {{ user.username }}
+               {{ user.username }} <strong>Click here for details </strong>
             </li>
           </ul>
       </div>
     </div>
-    <div class="col-md-6"></div>
     <!-- ***************************************************************** -->
    
     <div class="col-md-11">
@@ -47,7 +49,42 @@
                               </div>
                             </div>
                             <div class="col-md-8" style="background-color:rgb(204, 204, 236) ;">
-                              <label><strong>Service Proposed:</strong></label>
+                              <div *ngIf="service.id">
+                                <p> <label><strong>Service Provider:</strong></label> {{item.Member?.name}} - (code) : <strong>{{item.Member?.id}}</strong> </p>
+                              <!-- ************* pour ajouter les details competence******************* -->
+                                 <div class="form-group" *ngIf="isShownDetails" > 
+                                
+                                  <!-- *********************************************** -->
+                                  <form [formGroup]="FormServiceDemande" (ngSubmit)="AddServiceDetails()">
+                                   <div>
+                                          <label for="name"  style="color:blue ;">CodeService</label> <br/>
+                                          <input type="text" formControlName="id" ngModel="{{item?.id}}" style="width:50px ;" />
+                                  </div>
+                                  <div>
+                                    <label for="name"  style="color:blue ;">CodeService</label> <br/>
+                                    <input type="text" formControlName="ServiceId" ngModel="{{service.id}}" style="width:50px ;" />
+                                  </div>
+                                  <div>
+                                       <label for="name"  style="color:blue ;">CodeMember</label> <br/>
+                                       <input type="text" formControlName="MemberId" ngModel="{{item.Member?.id}}" style="width:50px ;" />
+                                  </div>
+                                  
+                                  <div >
+                                       <label for="name"  style="color:blue ;">Choose Date service</label> <br/> 
+                                      <input type="datetime-local" formControlName="jourHeurePropose" style="float:left ; margin-right: 3%;" />
+                                      <span *ngIf="FormServiceDemande.controls['jourHeurePropose'].invalid && !FormServiceDemande.controls['jourHeurePropose'].errors" style="color : red">
+                                          Date Time is required
+                                      </span>
+                                  </div>
+                                  
+                                  <button  class="btn btn-primary btn-sm" type="submit" [disabled]="FormServiceDemande.invalid">Valider</button>
+                                </form>
+                                <!-- *********************************************** -->
+                                </div>
+
+                                <!-- ****************** end of the details forms ********************************* -->
+                              </div>  
+                              <label><strong>Service Proposed: <a class="badge badge-warning" (click)="toggleShowDetails()" > Propose Date </a></strong></label>
                                     <ul> 
                                       <li> {{ service.service }}  </li>
                                       <li> {{ service.description }}  </li> 

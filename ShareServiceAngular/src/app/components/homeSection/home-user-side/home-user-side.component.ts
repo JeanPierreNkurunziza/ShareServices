@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ServiceDemande } from 'src/app/models/service-demande.model';
 import { User } from 'src/app/models/user.model';
+import { ServiceService } from 'src/app/_services/service.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -11,10 +15,16 @@ import { UserService } from 'src/app/_services/user.service';
 export class HomeUserSideComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
+  isShownDetails:boolean=false;
   username?:string;
   image?:string;
   loginUser?:string;
   email?:string 
+  ServiceDemande?:ServiceDemande[];
+  FormServiceDemande!:FormGroup;
+  isSuccessful = false;
+  formFailed = false;
+  errorMessage = '';
 
   password?:string;
   useRole?='';
@@ -27,7 +37,10 @@ export class HomeUserSideComponent implements OnInit {
   //username?:string;
 
   //iterableList = Object.keys(this.users);
-  constructor(private userservice : UserService, private tokenStorageService: TokenStorageService) { }
+  constructor(private userservice : UserService, private tokenStorageService: TokenStorageService,
+    private _builder:FormBuilder, public fb: FormBuilder, private serviceService: ServiceService,
+    private router: Router,
+    private ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.retrieveUsers()
@@ -41,8 +54,14 @@ export class HomeUserSideComponent implements OnInit {
       this.username = user.username;
       this.image=user.image;
       this.email= user.email
-     
-    }
+    };
+    this.FormServiceDemande= new FormGroup({
+      id:new FormControl(),
+      MemberId: new FormControl(),  
+      ServiceId: new FormControl(),  
+      jourHeurePropose: new FormControl(),  
+        
+    })
     
   }
   logout(): void {
@@ -75,6 +94,41 @@ export class HomeUserSideComponent implements OnInit {
     this.currentUser = user;
     this.currentIndex = index;
   }
+  AddServiceDetails(){
+    let newServiceDetails: ServiceDemande={
+      id:this.FormServiceDemande.value['id'],
+      ServiceId: this.FormServiceDemande.value['ServiceId'],
+      MemberId: this.FormServiceDemande.value['MemberId'],
+      jourHeurePropose: this.FormServiceDemande.value['jourHeurePropose'],
+      
+     }
+     this.serviceService.addServiceDemandeDetails(newServiceDetails).subscribe({
+      
+      next: data => {
+        console.log(data);
+        if(this.isSuccessful = true){
+          //this.ngZone.run(() => this.router.navigateByUrl('/members'))
+          this.reloadCurrentRoute()
+        }
+        this.formFailed = false;
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        this.formFailed = true;
+      }
+  })
+  }
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+  }
+  toggleShowDetails() {
+  
+    this.isShownDetails = ! this.isShownDetails;
+    }
+  
  
 
 }

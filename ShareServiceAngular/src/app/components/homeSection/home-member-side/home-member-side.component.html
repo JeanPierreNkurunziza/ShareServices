@@ -24,7 +24,7 @@
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Member Details</h3> 
                       <div *ngIf="currentMember.id">
                         <div class="card mb-3" style="max-width: 540px;">
-                          <div class="row no-gutters" *ngFor="let item of currentMember.Services">
+                          <div class="row no-gutters" >
                             <div class="col-md-4">
                             
                               <div class="card-img" >
@@ -80,12 +80,12 @@
           
                                   <div *ngIf="competence.Competence">
                                     <p> <label><strong>Title:</strong></label> {{competence.Competence.competence}}</p>
-                                    <div> <a class="badge badge-warning" (click)="toggleShow()"> Add Details </a> </div>
+                                    <div> <a class="badge badge-warning" (click)="toggleShow()"> Add level & free days </a> </div>
                                     <!-- ************* pour ajouter les details competence******************* -->
                                     <div class="form-group" *ngIf="isShown"  id="myDetails">
                                       <!-- *********************************************** -->
                                       <form [formGroup]="FormMemberCompetence" (ngSubmit)="AddCompetenceDetails()">
-                                      <label for="CompetenceId" style="color:blue" >Add Details</label>
+                                      <label for="CompetenceId" style="color:blue" >Select Competence</label>
                                       <select formControlName="CompetenceId" class="form-control">
                                           <option disabled>Select Competence</option>
                                           <option>Choose Competence</option>
@@ -138,12 +138,12 @@
                               </div>
                             </div>
                             <!-- <label><strong>Service to offer:</strong></label> -->
-                            <div class="col-md-4" > 
+                            <div class="col-md-4" *ngFor="let item of currentMember.Services"> 
                               <div class="card-img" >
                                 <img [src]="item.image | image" height="200px" width="200px"  > 
                               </div> 
                             </div>
-                            <div class="col-md-8" style="background-color:rgb(180, 180, 240) ;">  
+                            <div class="col-md-8" style="background-color:rgb(180, 180, 240) ;" *ngFor="let item of currentMember.Services">  
                                 <div class="card-text"> <label><strong>Problem:</strong></label>  {{ item.service }} </div>       
                                   <ul>                    
                                    
@@ -155,15 +155,15 @@
                             </div>
                             
                               <!-- <label><strong>Client:</strong></label>  -->
-                            <div class="col-md-4"> 
+                            <div class="col-md-4" *ngFor="let item of currentMember.Services"> 
                               <div class="card-img" *ngIf="item.User">
                                    <img [src]="item.User.image | image" height="200px" width="200px" > 
                               </div> 
                             </div>
                             <div class="col-md-8" style="background-color: rgb(206, 211, 197) ;">
-                               <label><strong>Client:</strong></label>
-                                <ul>
-                                  <li>Username: {{item.User?.username}}</li>
+                              
+                                <ul *ngFor="let item of currentMember.Services">
+                                  <li><strong>Client Name:</strong>:  {{item.User?.username}}</li>
                                   <li>Email: {{item.User?.email}}</li>
                                 </ul> 
                             </div>
