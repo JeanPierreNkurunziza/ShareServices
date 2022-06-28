@@ -38,7 +38,7 @@ exports.delete = (id)=>{
 exports.getOneByName=(label) => {
     return db.Competence.findOne({
         where: {
-          label: label 
+          competence: label 
         }
       })
 }

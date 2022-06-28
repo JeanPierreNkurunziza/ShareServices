@@ -51,7 +51,7 @@ exports.create= (req, res, next)=>{
 }
 
 exports.findOne = (req, res, next)=>{
-    competenceRepository.findOne(req.body.competence)
+    competenceRepository.getOneByName(req.body.competence)
     .then((data)=>{
         res.json(data)
     })

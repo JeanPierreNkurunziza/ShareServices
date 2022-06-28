@@ -192,11 +192,14 @@
 <!-- *********************** une autre partie pour *************************** -->
 <div class="list row">
     <div class="col-md-4">
-      <div class="input-group mb-3" style="margin-top: 1%;">
-        <input type="text" class="form-control" placeholder="Search by competence" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="searchCompetence()" > Search </button>
-        </div>
+      <div class="input-group mb-3">
+        <form>
+          <div style="margin-top:2% ;" class="form-group form-inline">
+            Search competence by name: 
+              <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+              (input)="search($any($event.target).value)" />
+          </div>
+        </form>
       </div>
     </div>
     <div class="col-md-6"></div>
@@ -204,16 +207,16 @@
       <h4 style="float:left ;">Competence List</h4>
       <button style="margin-left: 31%; margin-bottom: 1%;" class="btn btn-primary" (click)="triggerModal(modalData)">Views Providers</button>
       <ul class="list-group">
-        <li class="list-group-item" *ngFor="let competence of competences | paginate: { itemsPerPage:10, currentPage: p, totalItems: total }; let i = index " [class.active]="i == currentIndex"
+        <li class="list-group-item" *ngFor="let competence of competences | listFilterPipe : searchTerm | paginate: { itemsPerPage:10, currentPage: p, totalItems: total }; let i = index " [class.active]="i == currentIndex"
           (click)="setActiveCompetence(competence, i)" > 
           <strong>{{ competence.competence }} </strong> </li>
       </ul>
       <div>         
         <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
       </div> 
-      <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeCompetence(currentIndex)"> Remove </button>
-      <Button class="m-3 btn btn-sm btn-primary"> <a style="color:azure" routerLink="/AddCompetence"> Create </a> </Button>    
-                                         -->
+      <!-- <button class="m-3 btn btn-sm btn-danger" (click)="removeCompetence(currentIndex)"> Remove </button> -->
+      <Button class="m-3 btn btn-primary"> <a style="color:azure" routerLink="/AddCompetence"> Propose competence </a> </Button>    
+                                        
     </div>
     <!-- <div class="col-md-8">
       <section class="h-100 h-custom" style="background-color: #8fc4b7;">

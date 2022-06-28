@@ -13,7 +13,7 @@
           <label for="competence">Competence</label>
           <input type="text" class="form-control" id="name" [(ngModel)]="currentCompetence.competence" name="competence"/>
         </div>
-          <div class="card-body">
+          <!-- <div class="card-body">
             <input type="file" (change)="fileChangeEvent($event)" />
             <div class="text-center col-md-8" style="float:right"> 
             <image-cropper  [imageChangedEvent]="imageChangedEvent"  [maintainAspectRatio]="true"  [aspectRatio]="4 / 4"
@@ -21,7 +21,7 @@
             (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
             </div>
         <div class="text-center col-md-4" > <img [src]="croppedImage" /> </div>  
-        </div>   
+        </div>    -->
           <div>       
             <form [formGroup]="uploadForm" (ngSubmit)="submit()">
                 <!-- Select File -->

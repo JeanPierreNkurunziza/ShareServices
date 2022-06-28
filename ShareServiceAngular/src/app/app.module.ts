@@ -43,6 +43,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeServiceCreateComponent } from './components/homeSection/home-service-create/home-service-create.component';
 import { HomeMemberSideComponent } from './components/homeSection/home-member-side/home-member-side.component';
 import { HomeUserSideComponent } from './components/homeSection/home-user-side/home-user-side.component';
+import { ListFilterPipePipe } from './_pipes/list-filter-pipe.pipe';
 //import { Select2Module } from 'ng2-select2';
 //import { Select2Module } from 'ng2-select2';
 // import { Select2Component, Select2Module } from 'ng2-select2';
@@ -81,6 +82,7 @@ import { HomeUserSideComponent } from './components/homeSection/home-user-side/h
     HomeServiceCreateComponent,
     HomeMemberSideComponent,
     HomeUserSideComponent,
+    ListFilterPipePipe,
     
   ],
   imports: [

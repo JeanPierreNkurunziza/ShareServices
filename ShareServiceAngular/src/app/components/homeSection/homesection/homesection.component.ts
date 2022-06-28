@@ -13,6 +13,7 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 })
 export class HomesectionComponent implements OnInit {
   private roles: string[] = [];
+  searchTerm!: string ;
   isLoggedIn = false;
   username?:string;
   image?:string;
@@ -31,6 +32,8 @@ export class HomesectionComponent implements OnInit {
   competence?:string;
   message='';
   nombreMember=0;
+  allCompetences!:any[] 
+  collectionSize?: number;
   constructor(private competenceservice : CompetenceService,
     private router: Router,
     private ngZone: NgZone,config: NgbCarouselConfig, private modalService: NgbModal,
@@ -58,6 +61,11 @@ export class HomesectionComponent implements OnInit {
       this.email= user.email
      
     }
+  }
+  search( value: string ): void {
+    
+    this.competences = this.allCompetences.filter((val) => val.competence.toLowerCase().includes(value));
+    this.collectionSize = this.competences.length;
   }
   logout(): void {
     this.tokenStorageService.signOut();
@@ -91,7 +99,8 @@ export class HomesectionComponent implements OnInit {
         
         this.competences =data;
         this.total = data.total;
-      // this.list=data;
+        this.collectionSize= data.length;
+        this.allCompetences=this.competences
         console.log(data);
       },
       error : error => {
