@@ -44,6 +44,7 @@ import { HomeServiceCreateComponent } from './components/homeSection/home-servic
 import { HomeMemberSideComponent } from './components/homeSection/home-member-side/home-member-side.component';
 import { HomeUserSideComponent } from './components/homeSection/home-user-side/home-user-side.component';
 import { ListFilterPipePipe } from './_pipes/list-filter-pipe.pipe';
+import { HighchartsChartModule } from 'highcharts-angular';
 //import { Select2Module } from 'ng2-select2';
 //import { Select2Module } from 'ng2-select2';
 // import { Select2Component, Select2Module } from 'ng2-select2';
@@ -83,6 +84,7 @@ import { ListFilterPipePipe } from './_pipes/list-filter-pipe.pipe';
     HomeMemberSideComponent,
     HomeUserSideComponent,
     ListFilterPipePipe,
+   
     
   ],
   imports: [
@@ -96,7 +98,8 @@ import { ListFilterPipePipe } from './_pipes/list-filter-pipe.pipe';
     // Select2Component,
     //Select2Module,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    HighchartsChartModule
        
   ],
   providers: [ authInterceptorProviders],

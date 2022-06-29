@@ -4,6 +4,9 @@ import { Competence } from 'src/app/models/competence.model';
 import { CompetenceService } from 'src/app/_services/competence.service';
 import { NgbCarouselConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import * as Highcharts from 'highcharts';
+
+
 
 @Component({
   selector: 'app-homesection',
@@ -12,6 +15,7 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
   providers: [NgbCarouselConfig]
 })
 export class HomesectionComponent implements OnInit {
+  highcharts = Highcharts;
   private roles: string[] = [];
   searchTerm!: string ;
   isLoggedIn = false;
@@ -26,12 +30,10 @@ export class HomesectionComponent implements OnInit {
   p: number = 1;
   total: number = 0;
   competences?: any;
-  // list!:Competence[];
   currentCompetence: Competence = {};
   currentIndex = -1;
   competence?:string;
   message='';
-  nombreMember=0;
   allCompetences!:any[] 
   collectionSize?: number;
   constructor(private competenceservice : CompetenceService,
@@ -52,16 +54,16 @@ export class HomesectionComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      
-      
        this.roles = user.roles;
        this.useRole= user.roles
       this.username = user.username;
       this.image=user.image;
       this.email= user.email
-     
-    }
+    };
+    // this.pieChartBrowser();
+    
   }
+
   search( value: string ): void {
     
     this.competences = this.allCompetences.filter((val) => val.competence.toLowerCase().includes(value));
@@ -110,20 +112,7 @@ export class HomesectionComponent implements OnInit {
   refreshList(): void {
     this.retrieveCompetences();
   }
-  searchCompetence(): void {
-    
-    this.currentCompetence = {};
-    this.currentIndex = -1;
-    this.competenceservice.findByName(this.competence)
-      .subscribe({ next :
-        data => {
-         this.competences  = data;
-          console.log(data);
-        },
-        error : error => {
-          console.log(error);
-        }});
-  }
+  
   setActiveCompetence(competence: Competence, index: number): void {
     this.currentCompetence = competence;
     this.currentIndex = index;
@@ -155,6 +144,71 @@ export class HomesectionComponent implements OnInit {
   }
   myFunction() {
     alert("Please Sign up first!");
+  }
+  // **************************************** charts tests*********************
+  chartOptions: Highcharts.Options = {
+    chart: {
+      plotBackgroundColor: 'silver',
+      plotBorderWidth: 2,
+      plotShadow: true,
+      type: 'pie'
+    },
+    title: {
+      text: 'Members registered per competence'
+    },
+    tooltip: {
+
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+        }
+      }
+    },
+
+    
+    series: [{
+      name: 'Brands',
+      colorByPoint: true,
+       type: 'pie',
+      data:
+      [{
+        name: 'Chrome',
+        y: 61.41,
+        sliced: true,
+        selected: true
+        }, 
+        {
+        name: 'Internet Explorer',
+        y: 11.84
+      }, {
+        name: 'Firefox',
+        y: 10.85
+      }, {
+        name: 'Edge',
+        y: 4.67
+      }, {
+        name: 'Safari',
+        y: 4.18
+      }, {
+        name: 'Sogou Explorer',
+        y: 1.64
+      }, {
+        name: 'Opera',
+        y: 1.6
+      }, {
+        name: 'QQ',
+        y: 1.2
+      }, {
+        name: 'Other',
+        y: 2.61
+      }]
+    }]
   }
 
 }
