@@ -35,26 +35,26 @@ isAdmin = (req, res, next) => {
     });
   });
 };
-isModerator = (req, res, next) => {
+isMember = (req, res, next) => {
   userRepository.getOne(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].role === "moderator") {
+        if (roles[i].role === "member") {
           next();
           return;
         }
       }
       res.status(403).send({
-        message: "Require Moderator Role!"
+        message: "Require member Role!"
       });
     });
   });
 };
-isModeratorOrAdmin = (req, res, next) => {
+isMemberOrAdmin = (req, res, next) => {
   userRepository.getOne(req.userId).then(user => {
     user.getRoles().then(roles => {
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].role === "moderator") {
+        if (roles[i].role === "member") {
           next();
           return;
         }
@@ -72,7 +72,7 @@ isModeratorOrAdmin = (req, res, next) => {
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
-  isModerator: isModerator,
-  isModeratorOrAdmin: isModeratorOrAdmin
+  isMember: isMember,
+  isMemberOrAdmin: isMemberOrAdmin
 };
 module.exports = authJwt;

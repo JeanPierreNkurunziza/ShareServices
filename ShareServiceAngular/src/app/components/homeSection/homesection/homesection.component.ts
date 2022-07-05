@@ -8,6 +8,8 @@ import * as Highcharts from 'highcharts';
 
 
 
+
+
 @Component({
   selector: 'app-homesection',
   templateUrl: './homesection.component.html',
@@ -36,6 +38,11 @@ export class HomesectionComponent implements OnInit {
   message='';
   allCompetences!:any[] 
   collectionSize?: number;
+  dataCompetence!:Competence[];
+  nombreMember?=0;
+  dataCharts: any = [];
+  updatedChart:boolean =false
+
   constructor(private competenceservice : CompetenceService,
     private router: Router,
     private ngZone: NgZone,config: NgbCarouselConfig, private modalService: NgbModal,
@@ -60,7 +67,6 @@ export class HomesectionComponent implements OnInit {
       this.image=user.image;
       this.email= user.email
     };
-    // this.pieChartBrowser();
     
   }
 
@@ -102,8 +108,23 @@ export class HomesectionComponent implements OnInit {
         this.competences =data;
         this.total = data.total;
         this.collectionSize= data.length;
-        this.allCompetences=this.competences
-        console.log(data);
+        this.allCompetences=this.competences;
+        this.dataCompetence=this.competences;
+        for(let i of this.dataCompetence){
+          if(i.id){
+           //collect data for filling the charts
+            this.dataCharts.push({name:i.competence, y:i.MemberCompetences?.length})
+            
+          }
+        }
+          this.chartOptions.series=[
+            {name: 'Brands',
+            colorByPoint: true,
+            type: 'pie',
+            data: this.dataCharts}]
+            // console.log(this.chartOptions)
+            this.updatedChart=true;
+        // console.log(data);
       },
       error : error => {
         console.log(error);
@@ -170,44 +191,12 @@ export class HomesectionComponent implements OnInit {
         }
       }
     },
-
-    
     series: [{
       name: 'Brands',
       colorByPoint: true,
        type: 'pie',
-      data:
-      [{
-        name: 'Chrome',
-        y: 61.41,
-        sliced: true,
-        selected: true
-        }, 
-        {
-        name: 'Internet Explorer',
-        y: 11.84
-      }, {
-        name: 'Firefox',
-        y: 10.85
-      }, {
-        name: 'Edge',
-        y: 4.67
-      }, {
-        name: 'Safari',
-        y: 4.18
-      }, {
-        name: 'Sogou Explorer',
-        y: 1.64
-      }, {
-        name: 'Opera',
-        y: 1.6
-      }, {
-        name: 'QQ',
-        y: 1.2
-      }, {
-        name: 'Other',
-        y: 2.61
-      }]
+       data: [this.dataCharts]
+    
     }]
   }
 

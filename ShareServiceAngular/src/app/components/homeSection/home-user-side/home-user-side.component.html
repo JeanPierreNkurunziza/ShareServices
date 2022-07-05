@@ -4,7 +4,8 @@
     </div>
     <div class="col-md-6">
       <div class="input-group mb-3">
-        <ul style="text-align:left ;" class="list-group" *ngFor="let user of users ; let i = index ">
+        <ul style="text-align:left ;" class="list-group" *ngFor="let user of users
+         ; let i = index ">
             <li class="list-group-item" 
              [class.active]="i == currentIndex"
               (click)="setActiveUser(user, i)"  *ngIf="username==user.username">
@@ -27,7 +28,8 @@
                 <div class="card-body p-4 p-md-5" >
                   <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Personal Details</h3> 
                       <div *ngIf="currentUser.id">
-                        <div class="card mb-3" style="max-width: 540px;" *ngFor="let service of currentUser.Services">
+                        <div class="card mb-3" style="max-width: 540px;" *ngFor="let service of currentUser.Services
+                        ">
                           <div class="row no-gutters" *ngFor="let item of service.ServiceDemandes">
                             <div class="col-md-4">
                             
