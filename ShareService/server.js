@@ -40,6 +40,10 @@ app.use("/quartiers", quartierRouter)
 
 const serviceRouter = require("./routers/service.router")
 app.use("/services", serviceRouter) 
+// *******************************
+// const emailRouter= require("./routers/email.route")
+// app.use("/email", emailRouter)
+// **************************************
 
 app.all("*", (req, res, next)=>{
     console.log("Attention please the route not found !!!!")

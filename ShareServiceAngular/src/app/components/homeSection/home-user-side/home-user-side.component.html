@@ -105,6 +105,7 @@
                                         <li> {{ item.Member.email }}  </li>
                                         <li> {{ item.Member.phone }}  </li>
                                         <li> {{ item.Member.rue }} {{ item.Member.numero}} </li>
+                                        <a href="mailto:{{item.Member.email}}?subject={{ service.service }}&body={{ service.description }}">Contact via E-mail</a>
                                       </ul>
                                     </div>
                             </div>

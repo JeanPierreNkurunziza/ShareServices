@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import { OneSignal } from 'onesignal-ngx';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
   password?:string;
   loginPassword?:string;
   image?:string;
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private oneSignal: OneSignal) { }
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
@@ -37,9 +38,13 @@ export class AppComponent {
       // this.loginUser= user.email;
       // this.loginPassword= user.password
     }
+    this.oneSignal.init({
+      appId: "eea662ba-d1f5-4fff-9827-f26a7b9b4765",
+  });
   }
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+
 }

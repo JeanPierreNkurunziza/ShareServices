@@ -60,7 +60,8 @@
                     <ul  [ngClass]="{'myg-white': isBleu, 'myg-black':!isBleu}">                             
                       <li> <strong> Disponible:  {{ item.jour }} </strong> </li> 
                       <li><strong>Heure Disponible:  {{ item.heureDebut }}h - {{ item.heureFin}}h</strong> </li>
-                      <li><strong>Qualification:  {{ item.niveauCompetence }} </strong> </li>                                       
+                      <li><strong>Qualification:  {{ item.niveauCompetence }} </strong> </li>  
+                                                           
                    </ul>
 
                    <!-- button to show more infos of the person selected for services -->
@@ -83,7 +84,8 @@
                                   
                                     <ul>                             
                                       <li> <strong> Email:  {{ item.Member.email }} </strong> </li> 
-                                      <li><strong>Phone:  {{ item.Member.phone }}</strong> </li>                           
+                                      <li><strong>Phone:  {{ item.Member.phone }}</strong> </li> 
+                                      <a href="mailto:{{item.Member.email}}">Contact via E-mail</a>                          
                                   </ul>
                                   <div style=" text-align: center;"> <label><strong>Addresse</strong></label> </div>
                                   <div *ngIf="item.Member.Quartier">
